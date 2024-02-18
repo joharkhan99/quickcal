@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quickcal/components/slide.dart';
 import 'package:quickcal/pages/welcome_page.dart';
 
 void main() {
