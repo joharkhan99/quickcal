@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/pages/home_page.dart';
 import 'package:quickcal/pages/welcome_page.dart';
 
 void main() {
@@ -12,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WelcomePage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const WelcomePage(),
+          '/home': (context) => const HomePage(),
+        },
         theme: ThemeData(
           fontFamily: 'Roboto',
         ));
