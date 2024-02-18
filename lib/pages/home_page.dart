@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               child: GridView.builder(
                 padding: const EdgeInsets.all(0),
                 itemCount: calendar.totalDaysInMonth + 7 + calendar.getTotalExtraDays(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, mainAxisSpacing: 0, crossAxisSpacing: 0),
                 itemBuilder: (context, index) {
                   if (index < 7) {
                     return Card(
@@ -174,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 4,
                                     margin: const EdgeInsets.symmetric(horizontal: 2),
                                     decoration: BoxDecoration(
+                                      // border: Border.all(color: Colors.black, width: 1),
                                       color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
                                       shape: BoxShape.circle,
                                     ),
@@ -188,11 +189,62 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 3),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Today's Schedule",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "3 Events",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color.fromARGB(164, 46, 43, 45),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               flex: 1,
               child: ListView.builder(
+                padding: const EdgeInsets.only(bottom: 20),
                 itemCount: 20,
-                itemBuilder: (context, index) => Text("this is good"),
+                itemBuilder: (context, index) {
+                  return Row(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 8,
+                        height: 8,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        decoration: const BoxDecoration(
+                          color: Colors.purple,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Drop off kids at school"),
+                          Text("9:00 AM"),
+                        ],
+                      )
+                    ],
+                  );
+                },
               ),
             )
           ],
