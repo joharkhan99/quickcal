@@ -23,9 +23,14 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'QuickCal',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            // fontFamily:
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
