@@ -44,6 +44,44 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white.withAlpha(200),
         elevation: 0,
         actions: [
+          // IconButton(
+          //   icon: const Icon(Icons.calendar_today_outlined),
+          //   onPressed: () {},
+          //   tooltip: 'Month View',
+          // ),
+
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.calendar_today_outlined),
+                onPressed: () {},
+                tooltip: 'Today',
+              ),
+              Positioned(
+                width: 22,
+                height: 22,
+                top: 13,
+                right: 13,
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(0, 233, 91, 91),
+                    // shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    '${DateTime.now().day}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 11,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {},
@@ -65,16 +103,24 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
         child: GridView.builder(
             itemCount: calendar.totalDaysInMonth + 7 + calendar.getTotalExtraDays(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
             itemBuilder: (context, index) {
               if (index < 7) {
                 return Card(
-                  color: Colors.blue,
+                  color: Colors.white,
+                  elevation: 0,
                   child: Center(
-                    child: Text(calendar.getDayOfWeek(index + 1)),
+                    child: Text(
+                      calendar.getDayOfWeek(index + 1).toUpperCase(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        color: Color.fromARGB(140, 46, 43, 45),
+                      ),
+                    ),
                   ),
                 );
               } else {
@@ -90,19 +136,40 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 return Card(
-                  color: Colors.blue,
+                  color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.black : Colors.black.withAlpha(10),
+                  shape: RoundedRectangleBorder(
+                    side: date == 10 ? const BorderSide(color: Colors.black, width: 1.5) : BorderSide.none,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  elevation: 0,
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           '$date',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
                         ),
-                        // Text(
-                        //   '${date.day}',
-                        //   style: TextStyle(color: Colors.white),
-                        // ),
+                        if (date == 1 || date == 15 || date == 10 || date == 18)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              3,
+                              (index) => Container(
+                                width: 4,
+                                height: 4,
+                                margin: const EdgeInsets.symmetric(horizontal: 2),
+                                decoration: BoxDecoration(
+                                  color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

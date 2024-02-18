@@ -57,4 +57,9 @@ class Calendar {
   int getTotalExtraDays() {
     return getDaysInMonth().where((day) => day.isEmpty).length;
   }
+
+  bool checkIfDateIsToday(DateTime date) {
+    DateTime now = DateTime.now();
+    return now.day == date.day && now.month == date.month && now.year == date.year;
+  }
 }
