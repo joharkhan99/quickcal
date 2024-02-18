@@ -222,27 +222,38 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(bottom: 20),
                 itemCount: 20,
                 itemBuilder: (context, index) {
-                  return Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        decoration: const BoxDecoration(
-                          color: Colors.purple,
-                          shape: BoxShape.circle,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          // margin: const EdgeInsets.symmetric(horizontal: 2),
+                          decoration: const BoxDecoration(
+                            color: Colors.purple,
+                            shape: BoxShape.circle,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Drop off kids at school"),
-                          Text("9:00 AM"),
-                        ],
-                      )
-                    ],
+                        const SizedBox(width: 12),
+                        const Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Drop off kids at school",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                              ),
+                              Text("9:00 AM", style: TextStyle(color: Color.fromARGB(164, 46, 43, 45), fontSize: 12)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 },
               ),
