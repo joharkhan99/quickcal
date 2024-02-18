@@ -16,6 +16,20 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (selectedDate != null && selectedDate != DateTime.now()) {
+      // Do something with the selected date
+      print('Selected Date: $selectedDate');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,23 +43,42 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add, color: Colors.white),
       ),
       appBar: AppBar(
-        title: const Column(
+        title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'February',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.all(0),
+                  // onPrimary: Colors.black,
+                  foregroundColor: Colors.black.withAlpha(50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  )),
+              onPressed: () => _selectDate(context),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'February',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 25,
+                    ),
+                  ),
+                  Text(
+                    '2023',
+                    style: TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color.fromARGB(164, 46, 43, 45),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Text(
-              '2023',
-              style: TextStyle(
-                  // fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color.fromARGB(164, 46, 43, 45)),
             ),
           ],
         ),
