@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Calendar calendar = Calendar();
+  DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -17,17 +18,33 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    DateTime? selectedDate = await showDatePicker(
+    DateTime? date = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
 
-    if (selectedDate != null && selectedDate != DateTime.now()) {
-      // Do something with the selected date
-      print('Selected Date: $selectedDate');
+    if (date != null && date != DateTime.now()) {
+      setState(() {
+        calendar.setCurrentMonth(date);
+        selectedDate = date;
+      });
+      // print('Selected Date: $date');
     }
+  }
+
+  void updateCalendarToToday() {
+    setState(() {
+      calendar.setCurrentMonth(DateTime.now());
+      selectedDate = DateTime.now();
+    });
+  }
+
+  void handleDateCardClick(DateTime date) {
+    setState(() {
+      selectedDate = date;
+    });
   }
 
   @override
@@ -58,11 +75,11 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   )),
               onPressed: () => _selectDate(context),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'February',
+                    calendar.getCurrentMonthName(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -70,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    '2023',
+                    calendar.getCurrentYear().toString(),
                     style: TextStyle(
                       // fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -88,11 +105,6 @@ class _HomePageState extends State<HomePage> {
         actions: [
           Stack(
             children: [
-              IconButton(
-                icon: const Icon(Icons.calendar_today_outlined),
-                onPressed: () {},
-                tooltip: 'Today',
-              ),
               Positioned(
                 width: 22,
                 height: 22,
@@ -114,6 +126,11 @@ class _HomePageState extends State<HomePage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.calendar_today_outlined),
+                onPressed: updateCalendarToToday,
+                tooltip: 'Today',
               ),
             ],
           ),
@@ -145,7 +162,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             SizedBox(
               // auto height for the calendar
-              height: MediaQuery.of(context).size.width / 7 * 6,
+              height: MediaQuery.of(context).size.width / 7 * 6.5,
               child: GridView.builder(
                 padding: const EdgeInsets.all(0),
                 itemCount: calendar.totalDaysInMonth + 7 + calendar.getTotalExtraDays(),
@@ -178,43 +195,56 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
 
-                    return Card(
-                      color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.black : Colors.black.withAlpha(10),
-                      shape: RoundedRectangleBorder(
-                        side: date == 10 ? const BorderSide(color: Colors.black, width: 1.5) : BorderSide.none,
-                        borderRadius: BorderRadius.circular(100),
+                    return ElevatedButton(
+                      onPressed: () => handleDateCardClick(dayInfo.values.first),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shadowColor: Colors.white,
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.all(0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
                       ),
-                      elevation: 0,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '$date',
-                              style: TextStyle(
-                                color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15,
-                              ),
-                            ),
-                            if (date == 1 || date == 15 || date == 10 || date == 18)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                  3,
-                                  (index) => Container(
-                                    width: 4,
-                                    height: 4,
-                                    margin: const EdgeInsets.symmetric(horizontal: 2),
-                                    decoration: BoxDecoration(
-                                      // border: Border.all(color: Colors.black, width: 1),
-                                      color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
+                      child: Card(
+                        color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.black : Colors.black.withAlpha(10),
+                        shape: RoundedRectangleBorder(
+                          side: dayInfo.values.first == selectedDate ? const BorderSide(color: Colors.black, width: 1.5) : BorderSide.none,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        elevation: 0,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '$date',
+                                style: TextStyle(
+                                  color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
                                 ),
                               ),
-                          ],
+                              // if (date == 1 || date == 15 || date == 10 || date == 18)
+                              //   Row(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: List.generate(
+                              //       3,
+                              //       (index) => Container(
+                              //         width: 4,
+                              //         height: 4,
+                              //         margin: const EdgeInsets.symmetric(horizontal: 2),
+                              //         decoration: BoxDecoration(
+                              //           // border: Border.all(color: Colors.black, width: 1),
+                              //           color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
+                              //           shape: BoxShape.circle,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -222,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 3),
               child: Row(
                 children: [
@@ -231,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Today's Schedule",
+                        "Schedule for ${calendar.getCurrentMonthName()} ${selectedDate.day}, ${selectedDate.year}",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -255,8 +285,18 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(bottom: 20),
                 itemCount: 20,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                  return ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black.withAlpha(50),
+                      elevation: 0,
+                      shadowColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -276,10 +316,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(
                                 "Drop off kids at school",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.w500, decoration: TextDecoration.lineThrough, color: Colors.black),
                               ),
                               Text("9:00 AM", style: TextStyle(color: Color.fromARGB(164, 46, 43, 45), fontSize: 12)),
                             ],
