@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/pages/create_task_page.dart';
 import 'package:quickcal/pages/home_page.dart';
 import 'package:quickcal/pages/welcome_page.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const WelcomePage(),
           '/home': (context) => const HomePage(),
+          '/create-task': (context) => const CreateTaskPage(),
         },
         theme: ThemeData(
           fontFamily: 'Roboto',
