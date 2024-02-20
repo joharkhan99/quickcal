@@ -24,10 +24,8 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Roboto',
           // primary color is black
           primaryColor: Colors.black,
-          buttonTheme: ButtonThemeData(
-            buttonColor: Colors.black,
-            textTheme: ButtonTextTheme.primary,
-          ),
+          colorScheme: const ColorScheme.light(primary: Colors.black),
+          buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
         ));
   }
 }

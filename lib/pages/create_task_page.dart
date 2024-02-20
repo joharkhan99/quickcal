@@ -56,7 +56,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const DateField(),
+                        DateField(),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                         EventReminderField(changeReminderSwitch: changeReminderSwitch, light: light),
                       ],
@@ -66,9 +66,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const StartTimeField(),
+                        StartTimeField(),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                        const EndTimeField(),
+                        EndTimeField(),
                       ],
                     ),
                     const SizedBox(height: 15),

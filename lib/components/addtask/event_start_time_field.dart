@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class StartTimeField extends StatelessWidget {
-  const StartTimeField({super.key});
+  TimeOfDay selectedTime = TimeOfDay.now();
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(context: context, initialTime: selectedTime);
+
+    if (picked != null && picked != selectedTime) {
+      print('Time selected: ${picked.toString()}');
+    }
+  }
+
+  StartTimeField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +20,7 @@ class StartTimeField extends StatelessWidget {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.465,
           child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => _selectTime(context),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               backgroundColor: Colors.white,
