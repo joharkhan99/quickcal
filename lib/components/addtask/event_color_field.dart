@@ -34,8 +34,8 @@ class EventColorField extends StatelessWidget {
                   style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Container(
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                   decoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(50),

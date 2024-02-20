@@ -7,6 +7,7 @@ import 'package:quickcal/components/addtask/event_location_field.dart';
 import 'package:quickcal/components/addtask/event_name_field.dart';
 import 'package:quickcal/components/addtask/event_notes_field.dart';
 import 'package:quickcal/components/addtask/event_notify_field.dart';
+import 'package:quickcal/components/addtask/event_reminder_field.dart';
 import 'package:quickcal/components/addtask/event_start_time_field.dart';
 
 class CreateTaskPage extends StatefulWidget {
@@ -17,6 +18,14 @@ class CreateTaskPage extends StatefulWidget {
 }
 
 class _CreateTaskPageState extends State<CreateTaskPage> {
+  bool light = true;
+
+  void changeReminderSwitch(bool value) {
+    setState(() {
+      light = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +39,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.grey.shade200,
+        // backgroundColor: Colors.grey.shade200,
       ),
       body: Column(
         children: [
@@ -43,7 +52,15 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                   children: [
                     const EventNameField(),
                     const SizedBox(height: 15),
-                    const DateField(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const DateField(),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                        EventReminderField(changeReminderSwitch: changeReminderSwitch, light: light),
+                      ],
+                    ),
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -9,7 +9,7 @@ class DateField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.94,
+          width: MediaQuery.of(context).size.width * 0.465,
           child: ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
