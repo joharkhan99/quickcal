@@ -32,6 +32,11 @@ class EventNameField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        suffixIcon: Icon(
+          Icons.event_note_outlined,
+          color: Color.fromARGB(150, 46, 43, 45),
+          size: 20,
+        ),
       ),
     );
   }
