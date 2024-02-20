@@ -22,6 +22,12 @@ class MyApp extends StatelessWidget {
         },
         theme: ThemeData(
           fontFamily: 'Roboto',
+          // primary color is black
+          primaryColor: Colors.black,
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.black,
+            textTheme: ButtonTextTheme.primary,
+          ),
         ));
   }
 }
