@@ -36,7 +36,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                         labelText: 'Event name/title',
                         hintText: 'go to the gym, buy groceries, etc.',
                         floatingLabelStyle: TextStyle(
-                          fontSize: 16,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                           color: Colors.black,
                         ),
@@ -45,7 +45,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                           fontWeight: FontWeight.w400,
                         ),
                         labelStyle: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: Colors.black,
                         ),
@@ -57,7 +57,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                           borderSide: BorderSide(color: Colors.black, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                       ),
                     ),
                     SizedBox(height: 15),
@@ -89,7 +89,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                   style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                                 ),
                                 Icon(
-                                  Icons.calendar_view_month_outlined,
+                                  Icons.calendar_month_outlined,
                                   color: Color.fromARGB(150, 46, 43, 45),
                                   size: 20,
                                 ),
@@ -138,6 +138,106 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                     ),
                                   ],
                                 ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.01,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.465,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  backgroundColor: Colors.white,
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 0,
+                                  alignment: Alignment.centerLeft,
+                                  side: BorderSide(color: Color.fromARGB(50, 46, 43, 45), width: 1),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'End time',
+                                      style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+                                    ),
+                                    Icon(
+                                      Icons.watch_later_outlined,
+                                      color: Color.fromARGB(150, 46, 43, 45),
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.465,
+                              child: DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  // enabledBorder:
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Color.fromARGB(50, 46, 43, 45), width: 1),
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Color.fromARGB(50, 46, 43, 45), width: 1),
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                ),
+                                value: 'Two',
+                                icon: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.end, // Align icon at the end
+                                  children: [
+                                    Icon(
+                                      Icons.notifications_none_outlined,
+                                      color: Color.fromARGB(150, 46, 43, 45),
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                                elevation: 16,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                dropdownColor: Colors.white,
+                                onChanged: (String? value) {
+                                  // This is called when the user selects an item.
+                                  // setState(() {
+                                  //   dropdownValue = value!;
+                                  // });
+                                },
+                                items: ['One', 'Two', 'Three', 'Four'].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ],
