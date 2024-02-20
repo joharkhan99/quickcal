@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/components/addtask/event_color_modal.dart';
 
-class EventColorField extends StatelessWidget {
+class EventColorField extends StatefulWidget {
   const EventColorField({super.key});
+
+  @override
+  State<EventColorField> createState() => _EventColorFieldState();
+}
+
+class _EventColorFieldState extends State<EventColorField> {
+  void selectColorModal() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return EventColorDialogBox(
+            // controller: _controller,
+            // onSave: saveNewTask,
+            // onCancel: () => Navigator.of(context).pop(),
+            );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +30,7 @@ class EventColorField extends StatelessWidget {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.465,
           child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: selectColorModal,
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               backgroundColor: Colors.white,
