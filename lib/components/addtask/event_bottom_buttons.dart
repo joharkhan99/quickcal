@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BottomButtons extends StatelessWidget {
-  const BottomButtons({super.key});
+  final Function onSave;
+  final Function onCancel;
+  const BottomButtons({super.key, required this.onSave, required this.onCancel});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +17,7 @@ class BottomButtons extends StatelessWidget {
             // 50% of screen width
             width: MediaQuery.of(context).size.width * 0.47,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => onCancel(),
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 13),
                   backgroundColor: Colors.grey.shade300,
@@ -38,9 +38,7 @@ class BottomButtons extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.47,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => onSave(),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 13),
                 backgroundColor: Colors.black,

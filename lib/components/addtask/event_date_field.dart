@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/models/calendar.dart';
+import 'package:quickcal/models/task.dart';
 
-class DateField extends StatelessWidget {
+class DateField extends StatefulWidget {
+  final Task task;
+  const DateField({super.key, required this.task});
+
+  @override
+  State<DateField> createState() => _DateFieldState();
+}
+
+class _DateFieldState extends State<DateField> {
   DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -11,12 +21,12 @@ class DateField extends StatelessWidget {
       lastDate: DateTime(2101),
     );
 
-    if (picked != null && picked != selectedDate) {
-      print('Date selected: ${picked.toString()}');
+    if (picked != null) {
+      setState(() {
+        widget.task.setDate(picked);
+      });
     }
   }
-
-  DateField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +49,14 @@ class DateField extends StatelessWidget {
               alignment: Alignment.centerLeft,
               side: const BorderSide(color: Color.fromARGB(50, 46, 43, 45), width: 1),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Date',
-                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+                  "Date: ${widget.task.date.day}/${widget.task.date.month}/${widget.task.date.year}",
+                  style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                Icon(
+                const Icon(
                   Icons.calendar_month_outlined,
                   color: Color.fromARGB(150, 46, 43, 45),
                   size: 20,

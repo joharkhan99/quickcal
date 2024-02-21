@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/components/addtask/event_all_day_field.dart';
 import 'package:quickcal/components/addtask/event_bottom_buttons.dart';
 import 'package:quickcal/components/addtask/event_date_field.dart';
 import 'package:quickcal/components/addtask/event_end_time_field.dart';
@@ -7,8 +8,8 @@ import 'package:quickcal/components/addtask/event_location_field.dart';
 import 'package:quickcal/components/addtask/event_name_field.dart';
 import 'package:quickcal/components/addtask/event_notes_field.dart';
 import 'package:quickcal/components/addtask/event_notify_field.dart';
-import 'package:quickcal/components/addtask/event_reminder_field.dart';
 import 'package:quickcal/components/addtask/event_start_time_field.dart';
+import 'package:quickcal/models/task.dart';
 
 class CreateTaskPage extends StatefulWidget {
   const CreateTaskPage({super.key});
@@ -18,12 +19,32 @@ class CreateTaskPage extends StatefulWidget {
 }
 
 class _CreateTaskPageState extends State<CreateTaskPage> {
-  bool light = true;
+  late Task task;
+  late bool light;
+  final _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    task = Task();
+    light = task.allDay;
+  }
 
   void changeReminderSwitch(bool value) {
     setState(() {
       light = value;
+      task.setAllDay(value);
     });
+  }
+
+  void onSave() {
+    task.setName(_nameController.text);
+    task.printTask();
+  }
+
+  void onCancel() {
+    Navigator.pop(context);
   }
 
   @override
@@ -39,7 +60,6 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
           ),
         ),
         centerTitle: true,
-        // backgroundColor: Colors.grey.shade200,
       ),
       body: Column(
         children: [
@@ -50,15 +70,15 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    const EventNameField(),
+                    EventNameField(controller: _nameController),
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        DateField(),
+                        DateField(task: task),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                        EventReminderField(changeReminderSwitch: changeReminderSwitch, light: light),
+                        EventAllDayField(changeReminderSwitch: changeReminderSwitch, light: light),
                       ],
                     ),
                     const SizedBox(height: 15),
@@ -90,7 +110,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
               ),
             ),
           ),
-          const BottomButtons(),
+          BottomButtons(onSave: onSave, onCancel: onCancel),
         ],
       ),
     );

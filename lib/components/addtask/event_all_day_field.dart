@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class EventReminderField extends StatelessWidget {
+class EventAllDayField extends StatelessWidget {
   Function changeReminderSwitch;
   bool light;
-  EventReminderField({super.key, required this.changeReminderSwitch, required this.light});
+  EventAllDayField({super.key, required this.changeReminderSwitch, required this.light});
 
   @override
   Widget build(BuildContext context) {

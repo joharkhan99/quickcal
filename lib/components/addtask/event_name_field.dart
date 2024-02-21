@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class EventNameField extends StatelessWidget {
-  const EventNameField({super.key});
+  // ignore: prefer_typing_uninitialized_variables
+  final controller;
+  const EventNameField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: controller,
+      decoration: const InputDecoration(
         labelText: 'Event name/title',
         hintText: 'go to the gym, buy groceries, etc.',
         floatingLabelStyle: TextStyle(
