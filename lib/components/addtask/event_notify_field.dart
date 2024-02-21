@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/models/task.dart';
 
 class EventNotifyField extends StatelessWidget {
-  const EventNotifyField({super.key});
+  final Task task;
+  const EventNotifyField({super.key, required this.task});
+
+  void handleSwitchChange(String value) {
+    task.setNotifyTime(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class EventNotifyField extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
             ),
-            value: 'Two',
+            value: task.notifyTime,
             icon: const Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -40,13 +46,8 @@ class EventNotifyField extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
             dropdownColor: Colors.white,
-            onChanged: (String? value) {
-              // This is called when the user selects an item.
-              // setState(() {
-              //   dropdownValue = value!;
-              // });
-            },
-            items: ['One', 'Two', 'Three', 'Four'].map<DropdownMenuItem<String>>((String value) {
+            onChanged: (String? value) => handleSwitchChange(value!),
+            items: task.times.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

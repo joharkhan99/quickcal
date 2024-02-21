@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quickcal/models/calendar.dart';
 import 'package:quickcal/models/task.dart';
 
 class DateField extends StatefulWidget {

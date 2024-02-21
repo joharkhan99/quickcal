@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:quickcal/components/addtask/event_color_modal.dart';
+import 'package:quickcal/models/task.dart';
 
 class EventColorField extends StatefulWidget {
-  const EventColorField({super.key});
+  final Task task;
+  const EventColorField({super.key, required this.task});
 
   @override
   State<EventColorField> createState() => _EventColorFieldState();
 }
 
 class _EventColorFieldState extends State<EventColorField> {
+  void handleColorSelection(Color color) {
+    setState(() {
+      widget.task.setColor(color);
+      Navigator.pop(context);
+    });
+  }
+
   void selectColorModal() {
     showDialog(
       context: context,
       builder: (context) {
         return EventColorDialogBox(
-            // controller: _controller,
-            // onSave: saveNewTask,
-            // onCancel: () => Navigator.of(context).pop(),
-            );
+          handleColorSelection: handleColorSelection,
+          color: widget.task.color,
+          colors: widget.task.colors,
+          colorsLength: widget.task.colors.length,
+        );
       },
     );
   }
@@ -54,7 +64,7 @@ class _EventColorFieldState extends State<EventColorField> {
                   width: 22,
                   height: 22,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: widget.task.getColor(),
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),

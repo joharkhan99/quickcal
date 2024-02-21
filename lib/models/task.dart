@@ -4,20 +4,38 @@ class Task {
   late String name;
   late DateTime date;
   late bool allDay;
-  late DateTime startTime;
-  late DateTime endTime;
-  late String isAllDay;
+  late TimeOfDay startTime;
+  late TimeOfDay endTime;
+  late String notifyTime;
   late Color color;
   late String location;
   late String notes;
+
+  final List<String> times = ['None', 'On time', '5 mins before', '10 mins before', '15 mins before', '30 mins before', '1 hour before'];
+  final List<Color> colors = [
+    Colors.blueAccent,
+    Colors.red,
+    Colors.purple.shade300,
+    Colors.blue.shade200,
+    Colors.green.shade600,
+    Colors.pink.shade200,
+    Colors.teal.shade400,
+    Colors.amber.shade600,
+    Colors.brown.shade300,
+    Colors.indigo.shade400,
+    Colors.lightGreen,
+    Colors.deepPurple,
+    Colors.cyan,
+    Colors.lime,
+  ];
 
   Task() {
     name = '';
     date = DateTime.now();
     allDay = true;
-    startTime = DateTime.now();
-    endTime = DateTime.now();
-    isAllDay = '';
+    startTime = TimeOfDay.now();
+    endTime = TimeOfDay.now();
+    notifyTime = times[0];
     color = Colors.blue;
     location = '';
     notes = '';
@@ -35,16 +53,16 @@ class Task {
     this.allDay = allDay;
   }
 
-  void setStartTime(DateTime startTime) {
+  void setStartTime(TimeOfDay startTime) {
     this.startTime = startTime;
   }
 
-  void setEndTime(DateTime endTime) {
+  void setEndTime(TimeOfDay endTime) {
     this.endTime = endTime;
   }
 
-  void setisAllDay(String isAllDay) {
-    this.isAllDay = isAllDay;
+  void setNotifyTime(String notifyTime) {
+    this.notifyTime = notifyTime;
   }
 
   void setColor(Color color) {
@@ -71,16 +89,16 @@ class Task {
     return allDay;
   }
 
-  DateTime getStartTime() {
+  TimeOfDay getStartTime() {
     return startTime;
   }
 
-  DateTime getEndTime() {
+  TimeOfDay getEndTime() {
     return endTime;
   }
 
-  String getisAllDay() {
-    return isAllDay;
+  String getNotifyTime() {
+    return notifyTime;
   }
 
   Color getColor() {
@@ -101,7 +119,7 @@ class Task {
     print('All Day: $allDay');
     print('Start Time: $startTime');
     print('End Time: $endTime');
-    print('isAllDay: $isAllDay');
+    print('isAllDay: $notifyTime');
     print('Color: $color');
     print('Location: $location');
     print('Notes: $notes');

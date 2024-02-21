@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/models/task.dart';
 
-class StartTimeField extends StatelessWidget {
+class StartTimeField extends StatefulWidget {
+  final Task task;
+  const StartTimeField({super.key, required this.task});
+
+  @override
+  State<StartTimeField> createState() => _StartTimeFieldState();
+}
+
+class _StartTimeFieldState extends State<StartTimeField> {
   TimeOfDay selectedTime = TimeOfDay.now();
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(context: context, initialTime: selectedTime);
 
-    if (picked != null && picked != selectedTime) {
-      print('Time selected: ${picked.toString()}');
+    if (picked != null) {
+      setState(() {
+        widget.task.setStartTime(picked);
+      });
     }
   }
-
-  StartTimeField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +43,14 @@ class StartTimeField extends StatelessWidget {
               alignment: Alignment.centerLeft,
               side: const BorderSide(color: Color.fromARGB(50, 46, 43, 45), width: 1),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Start time',
-                  style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+                  "${widget.task.startTime.hourOfPeriod}:${widget.task.startTime.minute} ${widget.task.startTime.period.name.toUpperCase()}",
+                  style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                Icon(
+                const Icon(
                   Icons.watch_later_outlined,
                   color: Color.fromARGB(150, 46, 43, 45),
                   size: 20,

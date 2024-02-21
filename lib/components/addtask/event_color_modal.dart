@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
 
 class EventColorDialogBox extends StatelessWidget {
-  EventColorDialogBox({super.key});
-
-  final List<Color> colors = [
-    Colors.blueAccent,
-    Colors.red,
-    Colors.purple.shade300,
-    Colors.blue.shade200,
-    Colors.green.shade600,
-    Colors.pink.shade200,
-    Colors.teal.shade400,
-    Colors.amber.shade600,
-    Colors.brown.shade300,
-    Colors.indigo.shade400,
-    Colors.lightGreen,
-    Colors.deepPurple,
-    Colors.cyan,
-    Colors.lime,
-  ];
+  Color color;
+  Function handleColorSelection;
+  int colorsLength;
+  List<Color> colors;
+  EventColorDialogBox({super.key, required this.color, required this.handleColorSelection, required this.colorsLength, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +38,7 @@ class EventColorDialogBox extends StatelessWidget {
         ),
       ],
       alignment: Alignment.bottomCenter,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -59,20 +46,16 @@ class EventColorDialogBox extends StatelessWidget {
       ),
       content: Container(
         padding: const EdgeInsets.all(6),
-        margin: EdgeInsets.only(bottom: 20),
+        margin: const EdgeInsets.only(bottom: 20),
         height: MediaQuery.of(context).size.height * 0.2,
-        // full screen width
-        // width: MediaQuery.of(context).size.width * 0.9,
         width: double.maxFinite,
         child: GridView.builder(
           padding: const EdgeInsets.all(0),
-          itemCount: colors.length,
+          itemCount: colorsLength,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, crossAxisSpacing: 5, mainAxisSpacing: 5),
           itemBuilder: (context, index) {
             return ElevatedButton(
-              onPressed: () {
-                // Add the functionality you want when the button is pressed
-              },
+              onPressed: () => handleColorSelection(colors[index]),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors[index],
                 shape: RoundedRectangleBorder(
@@ -82,8 +65,8 @@ class EventColorDialogBox extends StatelessWidget {
                 padding: const EdgeInsets.all(0),
               ),
               child: Center(
-                child: index == 0
-                    ? Icon(
+                child: color == colors[index]
+                    ? const Icon(
                         Icons.check,
                         color: Colors.white,
                         size: 20,
