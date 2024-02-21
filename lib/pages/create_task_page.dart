@@ -11,6 +11,7 @@ import 'package:quickcal/components/addtask/event_notify_field.dart';
 import 'package:quickcal/components/addtask/event_start_time_field.dart';
 import 'package:quickcal/components/alert_message.dart';
 import 'package:quickcal/models/task.dart';
+import 'package:quickcal/pages/home_page.dart';
 
 class CreateTaskPage extends StatefulWidget {
   DateTime selectedDate;
@@ -51,12 +52,20 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
       AlertMessage(context, 'Name field is empty', 'Please enter a name for the event');
       return;
     }
-    if (task.date.isBefore(DateTime.now())) {
+
+    if (task.date.isBefore(DateTime.now().subtract(const Duration(days: 1)))) {
       AlertMessage(context, 'Invalid date', 'Please select a valid date');
       return;
     }
 
     task.printTask();
+    // clear all the fields
+    _nameController.clear();
+    _locationController.clear();
+    _notesController.clear();
+    // clear the task object
+    task = Task();
+    Navigator.pop(context);
   }
 
   void onCancel() {
