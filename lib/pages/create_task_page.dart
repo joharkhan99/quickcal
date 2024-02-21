@@ -22,6 +22,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   late Task task;
   late bool light;
   final _nameController = TextEditingController();
+  final _locationController = TextEditingController();
+  final _notesController = TextEditingController();
 
   @override
   void initState() {
@@ -40,6 +42,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
 
   void onSave() {
     task.setName(_nameController.text);
+    task.setLocation(_locationController.text);
+    task.setNotes(_notesController.text);
     task.printTask();
   }
 
@@ -102,9 +106,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       ],
                     ),
                     const SizedBox(height: 15),
-                    const EventLocationField(),
+                    EventLocationField(controller: _locationController),
                     const SizedBox(height: 15),
-                    const EventNotesField(),
+                    EventNotesField(controller: _notesController),
                   ],
                 ),
               ),

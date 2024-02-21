@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class EventLocationField extends StatelessWidget {
-  const EventLocationField({super.key});
+  // ignore: prefer_typing_uninitialized_variables
+  final controller;
+  const EventLocationField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: controller,
+      decoration: const InputDecoration(
         labelText: 'Location',
         hintText: 'Enter event location',
         floatingLabelStyle: TextStyle(

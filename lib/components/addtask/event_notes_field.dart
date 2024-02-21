@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 class EventNotesField extends StatelessWidget {
-  const EventNotesField({super.key});
+  // ignore: prefer_typing_uninitialized_variables
+  final controller;
+  const EventNotesField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: controller,
       maxLines: 3,
       textAlignVertical: TextAlignVertical.top,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: 'Type any notes here...',
         hintText: 'go to the gym, buy groceries, etc.',
         alignLabelWithHint: true,
