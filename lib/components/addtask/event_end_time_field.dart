@@ -47,7 +47,7 @@ class _EndTimeFieldState extends State<EndTimeField> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${widget.task.endTime.hourOfPeriod}:${widget.task.endTime.minute} ${widget.task.endTime.period.name.toUpperCase()}",
+                  "End: ${widget.task.endTime.hourOfPeriod}:${widget.task.endTime.minute} ${widget.task.endTime.period.name.toUpperCase()}",
                   style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 const Icon(

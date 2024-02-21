@@ -62,7 +62,10 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateTaskPage()),
+            MaterialPageRoute(
+                builder: (context) => CreateTaskPage(
+                      selectedDate: selectedDate,
+                    )),
           );
         },
         shape: RoundedRectangleBorder(

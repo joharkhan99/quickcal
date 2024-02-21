@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const WelcomePage(),
           '/home': (context) => const HomePage(),
-          '/create-task': (context) => const CreateTaskPage(),
+          '/create-task': (context) => CreateTaskPage(selectedDate: DateTime.now()),
         },
         theme: ThemeData(
           fontFamily: 'Roboto',

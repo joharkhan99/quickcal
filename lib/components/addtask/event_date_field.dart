@@ -3,14 +3,21 @@ import 'package:quickcal/models/task.dart';
 
 class DateField extends StatefulWidget {
   final Task task;
-  const DateField({super.key, required this.task});
+  final DateTime userSelectedDate;
+  const DateField({super.key, required this.task, required this.userSelectedDate});
 
   @override
   State<DateField> createState() => _DateFieldState();
 }
 
 class _DateFieldState extends State<DateField> {
+  // assign to the user selected date
   DateTime selectedDate = DateTime.now();
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.userSelectedDate;
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(

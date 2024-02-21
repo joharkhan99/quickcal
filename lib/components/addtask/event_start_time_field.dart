@@ -47,7 +47,7 @@ class _StartTimeFieldState extends State<StartTimeField> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${widget.task.startTime.hourOfPeriod}:${widget.task.startTime.minute} ${widget.task.startTime.period.name.toUpperCase()}",
+                  "Start: ${widget.task.startTime.hourOfPeriod}:${widget.task.startTime.minute} ${widget.task.startTime.period.name.toUpperCase()}",
                   style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 const Icon(
