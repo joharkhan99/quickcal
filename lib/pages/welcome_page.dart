@@ -15,20 +15,17 @@ class _WelcomePageState extends State<WelcomePage> {
   final List slides = [
     {
       'title': 'Welcome to QuickCal!',
-      'description':
-          'A user-friendly calendar app. Stay on top of your schedule, appointments, and events effortlessly.',
+      'description': 'A user-friendly calendar app. Stay on top of your schedule, appointments, and events effortlessly.',
       'imageUrl': 'lib/assets/slides/s1.png',
     },
     {
       'title': 'Discover Powerful Features',
-      'description':
-          'Explore a range of powerful features designed to make your life simpler. From intuitive event creation to seamless navigation.',
+      'description': 'Explore a range of powerful features designed to make your life simpler. From intuitive event creation to seamless navigation.',
       'imageUrl': 'lib/assets/slides/s2.png',
     },
     {
       'title': 'Get Started Now',
-      'description':
-          'Ready to transform the way you manage your time? Get started now to unlock the full potential of our app.',
+      'description': 'Ready to transform the way you manage your time? Get started now to unlock the full potential of our app.',
       'imageUrl': 'lib/assets/slides/s3.png',
     },
   ];
@@ -66,8 +63,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Column(
                 children: [
                   // nav dots
-                  SlideNavDots(
-                      currentPage: currentPage, totalSlides: slides.length),
+                  SlideNavDots(currentPage: currentPage, totalSlides: slides.length),
                   const SizedBox(height: 40.0),
                   SlideBottomButtons(
                     currentPage: currentPage,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class EventColorDialogBox extends StatelessWidget {
-  Color color;
+  int colorIndex;
   Function handleColorSelection;
   int colorsLength;
   List<Color> colors;
-  EventColorDialogBox({super.key, required this.color, required this.handleColorSelection, required this.colorsLength, required this.colors});
+  EventColorDialogBox({super.key, required this.colorIndex, required this.handleColorSelection, required this.colorsLength, required this.colors});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class EventColorDialogBox extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, crossAxisSpacing: 5, mainAxisSpacing: 5),
           itemBuilder: (context, index) {
             return ElevatedButton(
-              onPressed: () => handleColorSelection(colors[index]),
+              onPressed: () => handleColorSelection(index),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colors[index],
                 shape: RoundedRectangleBorder(
@@ -65,7 +65,7 @@ class EventColorDialogBox extends StatelessWidget {
                 padding: const EdgeInsets.all(0),
               ),
               child: Center(
-                child: color == colors[index]
+                child: colorIndex == index
                     ? const Icon(
                         Icons.check,
                         color: Colors.white,

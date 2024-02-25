@@ -10,6 +10,7 @@ import 'package:quickcal/components/addtask/event_notes_field.dart';
 import 'package:quickcal/components/addtask/event_notify_field.dart';
 import 'package:quickcal/components/addtask/event_start_time_field.dart';
 import 'package:quickcal/components/alert_message.dart';
+import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/task.dart';
 import 'package:quickcal/pages/home_page.dart';
 
@@ -27,6 +28,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   final _nameController = TextEditingController();
   final _locationController = TextEditingController();
   final _notesController = TextEditingController();
+  Database database = Database();
 
   @override
   void initState() {
@@ -58,13 +60,20 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
       return;
     }
 
-    task.printTask();
+    task.setTaskId(task.generateTaskId());
+
+    // task.printTask();
+    // save the task to the database
+    database.saveData(widget.selectedDate, task);
+
     // clear all the fields
     _nameController.clear();
     _locationController.clear();
     _notesController.clear();
     // clear the task object
     task = Task();
+
+    database.loadData(widget.selectedDate);
     Navigator.pop(context);
   }
 

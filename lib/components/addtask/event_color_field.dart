@@ -11,9 +11,9 @@ class EventColorField extends StatefulWidget {
 }
 
 class _EventColorFieldState extends State<EventColorField> {
-  void handleColorSelection(Color color) {
+  void handleColorSelection(int colorIndex) {
     setState(() {
-      widget.task.setColor(color);
+      widget.task.setColorIndex(colorIndex);
       Navigator.pop(context);
     });
   }
@@ -24,7 +24,7 @@ class _EventColorFieldState extends State<EventColorField> {
       builder: (context) {
         return EventColorDialogBox(
           handleColorSelection: handleColorSelection,
-          color: widget.task.color,
+          colorIndex: widget.task.colorIndex,
           colors: widget.task.colors,
           colorsLength: widget.task.colors.length,
         );

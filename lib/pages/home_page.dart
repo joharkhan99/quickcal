@@ -5,6 +5,7 @@ import 'package:quickcal/components/calendar/calendar_task_header.dart';
 import 'package:quickcal/components/calendar/calendar_tasks_list.dart';
 import 'package:quickcal/components/calendar/calendar_current_date_top_button.dart';
 import 'package:quickcal/components/calendar/calendar_popup_menu.dart';
+import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/calendar.dart';
 import 'package:quickcal/pages/create_task_page.dart';
 
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Calendar calendar = Calendar();
   DateTime selectedDate = DateTime.now();
+  Database database = Database();
 
   @override
   void initState() {
