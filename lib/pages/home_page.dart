@@ -19,13 +19,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Calendar calendar = Calendar();
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate;
   Database database = Database();
-  List<Task> tasksForDate = [];
+  late List<Task> tasksForDate;
 
   @override
   void initState() {
     super.initState();
+    selectedDate = DateTime.now();
     tasksForDate = database.getTasksForDate(selectedDate);
   }
 
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         calendar.setCurrentMonth(date);
         selectedDate = date;
-        tasksForDate = database.getTasksForDate(selectedDate);
+        tasksForDate = database.getTasksForDate(date);
       });
     }
   }
@@ -50,14 +51,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       calendar.setCurrentMonth(DateTime.now());
       selectedDate = DateTime.now();
-      tasksForDate = database.getTasksForDate(selectedDate);
+      tasksForDate = database.getTasksForDate(DateTime.now());
     });
   }
 
   void handleDateCardClick(DateTime date) {
     setState(() {
       selectedDate = date;
-      tasksForDate = database.getTasksForDate(selectedDate);
+      tasksForDate = database.getTasksForDate(date);
     });
   }
 
@@ -115,7 +116,12 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(5),
             child: Column(
               children: <Widget>[
-                CalendarGrid(calendar: calendar, selectedDate: selectedDate, handleDateCardClick: handleDateCardClick),
+                CalendarGrid(
+                  calendar: calendar,
+                  selectedDate: selectedDate,
+                  handleDateCardClick: handleDateCardClick,
+                  database: database,
+                ),
                 CalendarTaskHeader(calendar: calendar, selectedDate: selectedDate),
                 CalendarTasksList(tasksForDate: tasksForDate)
               ],

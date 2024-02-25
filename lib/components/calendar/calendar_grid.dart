@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/calendar.dart';
 
 class CalendarGrid extends StatelessWidget {
   final Calendar calendar;
   final DateTime selectedDate;
   final Function handleDateCardClick;
+  final Database database;
   const CalendarGrid({
     super.key,
     required this.calendar,
     required this.selectedDate,
     required this.handleDateCardClick,
+    required this.database,
   });
 
   @override
@@ -80,22 +83,22 @@ class CalendarGrid extends StatelessWidget {
                         ),
                       ),
                       // if (date == 1 || date == 15 || date == 10 || date == 18)
-                      //   Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: List.generate(
-                      //       3,
-                      //       (index) => Container(
-                      //         width: 4,
-                      //         height: 4,
-                      //         margin: const EdgeInsets.symmetric(horizontal: 2),
-                      //         decoration: BoxDecoration(
-                      //           // border: Border.all(color: Colors.black, width: 1),
-                      //           color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : Colors.black,
-                      //           shape: BoxShape.circle,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          database.getTasksForDate(dayInfo.values.first).length,
+                          (index) => Container(
+                            width: 4,
+                            height: 4,
+                            margin: const EdgeInsets.symmetric(horizontal: 2),
+                            decoration: BoxDecoration(
+                              // border: Border.all(color: Colors.black, width: 1),
+                              color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : database.getTasksForDate(dayInfo.values.first)[index].getColor(),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

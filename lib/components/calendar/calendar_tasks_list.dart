@@ -33,11 +33,8 @@ class CalendarTasksList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  //
-                  width: 10,
-                  // full height
-                  height: 10,
-                  // margin: const EdgeInsets.symmetric(horizontal: 2),
+                  width: 12,
+                  height: 12,
                   decoration: BoxDecoration(
                     color: tasksForDate[index].getColor(),
                     shape: BoxShape.circle,
