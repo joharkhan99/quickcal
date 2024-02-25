@@ -37,7 +37,6 @@ class Task {
     startTime = TimeOfDay.now();
     endTime = TimeOfDay.now();
     notifyTime = times[0];
-    // color = Colors.blue;
     colorIndex = 0;
     location = '';
     notes = '';

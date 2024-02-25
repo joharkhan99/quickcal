@@ -23,4 +23,16 @@ class Database {
     tasksForDate.add(newtask.toJson());
     tasksbox.put(date.toString(), tasksForDate);
   }
+
+  List<Task> getTasksForDate(DateTime date) {
+    List<Task> tasks = [];
+    var savedTasks = tasksbox.get(date.toString()) ?? [];
+    for (var task in savedTasks) {
+      var encodedTask = jsonEncode(task);
+      Map<String, dynamic> decodedTask = json.decode(encodedTask);
+      Task t = Task.fromJson(decodedTask);
+      tasks.add(t);
+    }
+    return tasks;
+  }
 }

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:quickcal/data/database.dart';
+import 'package:quickcal/models/task.dart';
 
 class CalendarTasksList extends StatelessWidget {
-  const CalendarTasksList({super.key});
+  // final DateTime selectedDate;
+  // Database db = Database();
+  List<Task> tasksForDate;
+  CalendarTasksList({super.key, required this.tasksForDate});
+  // tasks = db.getTasksForDate(selectedDate);
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +15,7 @@ class CalendarTasksList extends StatelessWidget {
       flex: 1,
       child: ListView.builder(
         padding: const EdgeInsets.only(bottom: 20),
-        itemCount: 20,
+        itemCount: tasksForDate.length,
         itemBuilder: (context, index) {
           return ElevatedButton(
             onPressed: () {},
@@ -27,24 +33,27 @@ class CalendarTasksList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: 8,
-                  height: 8,
+                  //
+                  width: 10,
+                  // full height
+                  height: 10,
                   // margin: const EdgeInsets.symmetric(horizontal: 2),
-                  decoration: const BoxDecoration(
-                    color: Colors.purple,
+                  decoration: BoxDecoration(
+                    color: tasksForDate[index].getColor(),
                     shape: BoxShape.circle,
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Flexible(
+                Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Drop off kids at school",
-                        style: TextStyle(fontWeight: FontWeight.w500, decoration: TextDecoration.lineThrough, color: Colors.black),
+                        tasksForDate[index].name,
+                        style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
                       ),
-                      Text("9:00 AM", style: TextStyle(color: Color.fromARGB(164, 46, 43, 45), fontSize: 12)),
+                      Text('${tasksForDate[index].startTime.hour.toString()} - ${tasksForDate[index].endTime.hour.toString()}',
+                          style: const TextStyle(color: Color.fromARGB(164, 46, 43, 45), fontSize: 12)),
                     ],
                   ),
                 )

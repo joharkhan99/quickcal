@@ -14,7 +14,7 @@ class CalendarDateSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey[300],
           elevation: 0,
           padding: const EdgeInsets.all(0),
           foregroundColor: Colors.black.withAlpha(50),

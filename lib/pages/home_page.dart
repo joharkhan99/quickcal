@@ -7,6 +7,7 @@ import 'package:quickcal/components/calendar/calendar_current_date_top_button.da
 import 'package:quickcal/components/calendar/calendar_popup_menu.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/calendar.dart';
+import 'package:quickcal/models/task.dart';
 import 'package:quickcal/pages/create_task_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,10 +21,12 @@ class _HomePageState extends State<HomePage> {
   Calendar calendar = Calendar();
   DateTime selectedDate = DateTime.now();
   Database database = Database();
+  List<Task> tasksForDate = [];
 
   @override
   void initState() {
     super.initState();
+    tasksForDate = database.getTasksForDate(selectedDate);
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -34,12 +37,12 @@ class _HomePageState extends State<HomePage> {
       lastDate: DateTime(2101),
     );
 
-    if (date != null && date != DateTime.now()) {
+    if (date != null) {
       setState(() {
         calendar.setCurrentMonth(date);
         selectedDate = date;
+        tasksForDate = database.getTasksForDate(selectedDate);
       });
-      // print('Selected Date: $date');
     }
   }
 
@@ -47,19 +50,21 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       calendar.setCurrentMonth(DateTime.now());
       selectedDate = DateTime.now();
+      tasksForDate = database.getTasksForDate(selectedDate);
     });
   }
 
   void handleDateCardClick(DateTime date) {
     setState(() {
       selectedDate = date;
+      tasksForDate = database.getTasksForDate(selectedDate);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[300],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -82,7 +87,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [CalendarDateSelector(calendar: calendar, selectDate: _selectDate)],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[300],
         elevation: 0,
         scrolledUnderElevation: 0.0,
         actions: [
@@ -96,13 +101,26 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: <Widget>[
-            CalendarGrid(calendar: calendar, selectedDate: selectedDate, handleDateCardClick: handleDateCardClick),
-            CalendarTaskHeader(calendar: calendar, selectedDate: selectedDate),
-            const CalendarTasksList()
-          ],
+        padding: const EdgeInsets.all(0),
+        child: Container(
+          margin: const EdgeInsets.only(top: 10),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Column(
+              children: <Widget>[
+                CalendarGrid(calendar: calendar, selectedDate: selectedDate, handleDateCardClick: handleDateCardClick),
+                CalendarTaskHeader(calendar: calendar, selectedDate: selectedDate),
+                CalendarTasksList(tasksForDate: tasksForDate)
+              ],
+            ),
+          ),
         ),
       ),
     );
