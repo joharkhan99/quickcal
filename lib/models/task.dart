@@ -21,13 +21,13 @@ class Task {
     Colors.green.shade600,
     Colors.pink.shade200,
     Colors.teal.shade400,
-    Colors.amber.shade600,
+    Colors.amber.shade800,
     Colors.brown.shade300,
     Colors.indigo.shade400,
     Colors.lightGreen,
     Colors.deepPurple,
     Colors.cyan,
-    Colors.lime,
+    Color.fromARGB(255, 212, 0, 141),
   ];
 
   Task() {

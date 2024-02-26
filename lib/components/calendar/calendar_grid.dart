@@ -86,11 +86,11 @@ class CalendarGrid extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         //
                         children: List.generate(
-                          database.getTasksForDate(dayInfo.values.first).length > 4 ? 4 : database.getTasksForDate(dayInfo.values.first).length,
+                          database.getTasksForDate(dayInfo.values.first).length > 3 ? 3 : database.getTasksForDate(dayInfo.values.first).length,
                           (index) {
                             return Container(
-                              width: 4,
-                              height: 4,
+                              width: 5,
+                              height: 5,
                               margin: const EdgeInsets.symmetric(horizontal: 2),
                               decoration: BoxDecoration(
                                 color: database.getTasksForDate(dayInfo.values.first)[index].getColor(),
