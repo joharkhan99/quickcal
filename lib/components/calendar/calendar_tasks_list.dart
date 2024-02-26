@@ -60,7 +60,7 @@ class CalendarTasksList extends StatelessWidget {
                             fontSize: 15,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 2),
                         Row(
                           children: [
                             Icon(
@@ -93,7 +93,7 @@ class CalendarTasksList extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 2),
                         Row(
                           children: [
                             Icon(
@@ -112,7 +112,7 @@ class CalendarTasksList extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 2),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

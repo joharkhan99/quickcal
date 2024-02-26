@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Task {
   late String name;
   late DateTime date;
+  late DateTime selectedDate;
   late bool allDay;
   late TimeOfDay startTime;
   late TimeOfDay endTime;
@@ -27,12 +28,14 @@ class Task {
     Colors.lightGreen,
     Colors.deepPurple,
     Colors.cyan,
-    Color.fromARGB(255, 212, 0, 141),
+    const Color.fromARGB(255, 212, 0, 141),
+    const Color.fromARGB(255, 0, 0, 255),
   ];
 
   Task() {
     name = '';
     date = DateTime.now();
+    selectedDate = DateTime.now();
     allDay = true;
     startTime = TimeOfDay.now();
     endTime = TimeOfDay.now();
@@ -48,6 +51,10 @@ class Task {
 
   void setDate(DateTime date) {
     this.date = date;
+  }
+
+  void setSelectedDate(DateTime selectedDate) {
+    this.selectedDate = selectedDate;
   }
 
   void setAllDay(bool allDay) {
@@ -88,6 +95,10 @@ class Task {
 
   DateTime getDate() {
     return date;
+  }
+
+  DateTime getSelectedDate() {
+    return selectedDate;
   }
 
   bool getAllDay() {

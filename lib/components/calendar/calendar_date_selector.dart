@@ -33,12 +33,23 @@ class CalendarDateSelector extends StatelessWidget {
               fontSize: 25,
             ),
           ),
-          Text(
-            calendar.getCurrentYear().toString(),
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(164, 46, 43, 45),
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                calendar.getCurrentYear().toString(),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Color.fromARGB(164, 46, 43, 45),
+                ),
+              ),
+              const SizedBox(width: 5),
+              const Icon(
+                Icons.arrow_drop_down_outlined,
+                color: Color.fromARGB(164, 46, 43, 45),
+                size: 22,
+              ),
+            ],
           ),
         ],
       ),
