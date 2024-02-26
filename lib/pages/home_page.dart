@@ -123,7 +123,19 @@ class _HomePageState extends State<HomePage> {
                   database: database,
                 ),
                 CalendarTaskHeader(calendar: calendar, selectedDate: selectedDate),
-                CalendarTasksList(tasksForDate: tasksForDate)
+                tasksForDate.isEmpty
+                    ? const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Text(
+                          'No events. Tap + to add a new event.',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                    : CalendarTasksList(tasksForDate: tasksForDate)
               ],
             ),
           ),

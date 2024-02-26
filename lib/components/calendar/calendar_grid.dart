@@ -18,7 +18,7 @@ class CalendarGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.width / 7 * 6.5,
+      height: MediaQuery.of(context).size.width / 7 * 6,
       child: GridView.builder(
         padding: const EdgeInsets.all(0),
         itemCount: calendar.totalDaysInMonth + 7 + calendar.getTotalExtraDays(),
