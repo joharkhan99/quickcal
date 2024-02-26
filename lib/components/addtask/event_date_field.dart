@@ -59,7 +59,7 @@ class _DateFieldState extends State<DateField> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Date: ${widget.task.date.day}/${widget.task.date.month}/${widget.task.date.year}",
+                  "Date: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
                   style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 const Icon(

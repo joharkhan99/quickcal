@@ -30,6 +30,9 @@ class Task {
     Colors.cyan,
     const Color.fromARGB(255, 212, 0, 141),
     const Color.fromARGB(255, 0, 0, 255),
+    Colors.red.shade900,
+    Colors.grey.shade700,
+    const Color.fromRGBO(236, 122, 88, 1.0)
   ];
 
   Task() {

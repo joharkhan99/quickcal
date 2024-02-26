@@ -47,7 +47,7 @@ class EventColorDialogBox extends StatelessWidget {
       content: Container(
         padding: const EdgeInsets.all(6),
         margin: const EdgeInsets.only(bottom: 20),
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: MediaQuery.of(context).size.height * 0.3,
         width: double.maxFinite,
         child: GridView.builder(
           padding: const EdgeInsets.all(0),
