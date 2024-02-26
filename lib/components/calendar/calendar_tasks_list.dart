@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/task.dart';
 
 class CalendarTasksList extends StatelessWidget {
-  // final DateTime selectedDate;
-  // Database db = Database();
   List<Task> tasksForDate;
   CalendarTasksList({super.key, required this.tasksForDate});
-  // tasks = db.getTasksForDate(selectedDate);
 
   @override
   Widget build(BuildContext context) {

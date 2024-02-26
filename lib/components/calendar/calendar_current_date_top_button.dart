@@ -29,7 +29,7 @@ class CurrentDateTopButton extends StatelessWidget {
         ),
         IconButton(
           icon: const Icon(Icons.calendar_today_outlined),
-          onPressed: () => updateCalendarToToday(),
+          onPressed: () => updateCalendarToToday(DateTime.now()),
           tooltip: 'Today',
         ),
       ],

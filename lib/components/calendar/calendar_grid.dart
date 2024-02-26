@@ -82,7 +82,6 @@ class CalendarGrid extends StatelessWidget {
                           fontSize: 15,
                         ),
                       ),
-                      // if (date == 1 || date == 15 || date == 10 || date == 18)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
@@ -92,8 +91,7 @@ class CalendarGrid extends StatelessWidget {
                             height: 4,
                             margin: const EdgeInsets.symmetric(horizontal: 2),
                             decoration: BoxDecoration(
-                              // border: Border.all(color: Colors.black, width: 1),
-                              color: calendar.checkIfDateIsToday(dayInfo.values.first) ? Colors.white : database.getTasksForDate(dayInfo.values.first)[index].getColor(),
+                              color: database.getTasksForDate(dayInfo.values.first)[index].getColor(),
                               shape: BoxShape.circle,
                             ),
                           ),

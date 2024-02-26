@@ -54,10 +54,10 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
       return;
     }
 
-    if (task.date.isBefore(DateTime.now().subtract(const Duration(days: 1)))) {
-      AlertMessage(context, 'Invalid date', 'Please select a valid date');
-      return;
-    }
+    // if (task.date.isBefore(DateTime.now().subtract(const Duration(days: 1)))) {
+    //   AlertMessage(context, 'Invalid date', 'Please select a valid date');
+    //   return;
+    // }
 
     task.setTaskId(task.generateTaskId());
     database.saveData(widget.selectedDate, task);

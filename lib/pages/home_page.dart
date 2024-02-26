@@ -47,11 +47,11 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void updateCalendarToToday() {
+  void updateCalendarToToday(DateTime date) {
     setState(() {
-      calendar.setCurrentMonth(DateTime.now());
-      selectedDate = DateTime.now();
-      tasksForDate = database.getTasksForDate(DateTime.now());
+      calendar.setCurrentMonth(date);
+      selectedDate = date;
+      tasksForDate = database.getTasksForDate(date);
     });
   }
 
