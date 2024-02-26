@@ -34,7 +34,23 @@ class CalendarTasksList extends StatelessWidget {
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(5), topLeft: Radius.circular(5)),
             ),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => showBottomSheet(
+                context: context,
+                builder: (context) => Container(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Text(tasksForDate[index].name),
+                      Text(tasksForDate[index].startTime.format(context)),
+                      Text(tasksForDate[index].endTime.format(context)),
+                      Text(tasksForDate[index].notifyTime),
+                      Text(tasksForDate[index].location),
+                      Text(tasksForDate[index].notes),
+                    ],
+                  ),
+                ),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: tasksForDate[index].getColor().withOpacity(0.12),
                 foregroundColor: Colors.white,
