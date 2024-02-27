@@ -9,7 +9,7 @@ import 'package:quickcal/components/addtask/event_name_field.dart';
 import 'package:quickcal/components/addtask/event_notes_field.dart';
 import 'package:quickcal/components/addtask/event_notify_field.dart';
 import 'package:quickcal/components/addtask/event_start_time_field.dart';
-import 'package:quickcal/components/alert_message.dart';
+import 'package:quickcal/components/misc/alert_message.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/task.dart';
 
@@ -44,6 +44,22 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     });
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: widget.selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null) {
+      setState(() {
+        widget.selectedDate = picked;
+        task.setDate(picked);
+      });
+    }
+  }
+
   void onSave() {
     task.setName(_nameController.text);
     task.setLocation(_locationController.text);
@@ -54,15 +70,10 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
       return;
     }
 
-    // if (task.date.isBefore(DateTime.now().subtract(const Duration(days: 1)))) {
-    //   AlertMessage(context, 'Invalid date', 'Please select a valid date');
-    //   return;
-    // }
-
     task.setTaskId(task.generateTaskId());
-    database.saveData(widget.selectedDate, task);
+    task.setDate(widget.selectedDate);
+    database.saveData(task);
 
-    // clear all the fields
     _nameController.clear();
     _locationController.clear();
     _notesController.clear();
@@ -72,11 +83,9 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   }
 
   void onCancel() {
-    // clear all the fields
     _nameController.clear();
     _locationController.clear();
     _notesController.clear();
-    // clear the task object
     task = Task();
     Navigator.pop(context);
   }
@@ -110,7 +119,46 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        DateField(task: task, userSelectedDate: widget.selectedDate),
+                        // DateField(task: task, userSelectedDate: widget.selectedDate),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.465,
+                              child: ElevatedButton(
+                                onPressed: () => _selectDate(context),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Colors.white,
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 0,
+                                  alignment: Alignment.centerLeft,
+                                  side: const BorderSide(color: Color.fromARGB(50, 46, 43, 45), width: 1),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Date: ${widget.selectedDate.day}/${widget.selectedDate.month}/${widget.selectedDate.year}",
+                                      style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+                                    ),
+                                    const Icon(
+                                      Icons.calendar_month_outlined,
+                                      color: Color.fromARGB(150, 46, 43, 45),
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // DateField(task: task, userSelectedDate: widget.selectedDate),
+
                         SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                         EventAllDayField(changeReminderSwitch: changeReminderSwitch, light: light),
                       ],

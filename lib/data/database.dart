@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:quickcal/models/task.dart';
 
@@ -18,10 +16,12 @@ class Database {
     }
   }
 
-  void saveData(DateTime date, Task newtask) {
-    var tasksForDate = tasksbox.get(date.toString()) ?? [];
+  void saveData(Task newtask) {
+    var tasksForDate = tasksbox.get(newtask.date.toString()) ?? [];
     tasksForDate.add(newtask.toJson());
-    tasksbox.put(date.toString(), tasksForDate);
+    tasksbox.put(newtask.date.toString(), tasksForDate);
+    print('Task saved');
+    print(tasksForDate);
   }
 
   List<Task> getTasksForDate(DateTime date) {
@@ -34,5 +34,13 @@ class Database {
       tasks.add(t);
     }
     return tasks;
+  }
+
+  void deleteTask(Task task) {
+    task.printTask();
+    var tasksForDate = tasksbox.get(task.date.toString()) ?? [];
+    print(tasksForDate);
+    tasksForDate.removeWhere((element) => element['taskId'] == task.taskId);
+    tasksbox.put(task.date.toString(), tasksForDate);
   }
 }

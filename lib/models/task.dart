@@ -46,6 +46,7 @@ class Task {
     colorIndex = 0;
     location = '';
     notes = '';
+    taskId = '';
   }
 
   void setName(String name) {

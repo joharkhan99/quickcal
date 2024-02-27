@@ -29,8 +29,12 @@ class _DateFieldState extends State<DateField> {
 
     if (picked != null) {
       setState(() {
+        selectedDate = picked;
         widget.task.setDate(picked);
       });
+      // print('Picked date: $selectedDate');
+      // widget.task.printTask();
+      // print('Picked date: $selectedDate');
     }
   }
 
