@@ -48,16 +48,113 @@ class CalendarTasksList extends StatelessWidget {
                 context: context,
                 builder: (context) => Container(
                   height: MediaQuery.of(context).size.height * 0.5,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Text(tasksForDate[index].name),
-                      Text(tasksForDate[index].startTime.format(context)),
-                      Text(tasksForDate[index].endTime.format(context)),
-                      Text(tasksForDate[index].notifyTime),
-                      Text(tasksForDate[index].location),
-                      Text(tasksForDate[index].notes),
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(94, 0, 0, 0),
+                        spreadRadius: 40,
+                        blurRadius: 100,
+                      ),
                     ],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black.withOpacity(0.5),
+                          size: 20,
+                        ),
+                        Text(
+                          tasksForDate[index].name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: tasksForDate[index].getColor(),
+                            fontSize: 20,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time,
+                              fill: 1,
+                              size: 15,
+                              color: tasksForDate[index].getColor(),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              getTaskTime(tasksForDate[index], context),
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Icon(
+                              Icons.notifications_none,
+                              size: 15,
+                              color: tasksForDate[index].getColor().withOpacity(0.9),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              tasksForDate[index].notifyTime,
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              fill: 1,
+                              size: 15,
+                              color: tasksForDate[index].getColor(),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              tasksForDate[index].location == '' ? 'Not specified' : tasksForDate[index].location,
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.5),
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.notes_outlined,
+                              fill: 1,
+                              size: 15,
+                              color: tasksForDate[index].getColor(),
+                            ),
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: Text(
+                                tasksForDate[index].notes,
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
