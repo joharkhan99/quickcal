@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/task.dart';
+import 'package:quickcal/pages/edit_task_page.dart';
 
 class DetailsBottomSheet extends StatelessWidget {
   Task task;
@@ -184,7 +185,16 @@ class DetailsBottomSheet extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.45,
                   child: ElevatedButton(
-                    onPressed: () => (),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditTaskPage(
+                            task: task,
+                          ),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 13),
                       backgroundColor: task.getColor(),
