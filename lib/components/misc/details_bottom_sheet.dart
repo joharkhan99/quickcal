@@ -26,13 +26,9 @@ class DetailsBottomSheet extends StatelessWidget {
   }
 
   void deleteEvent(BuildContext context) {
-    // close bottom sheet
     task.printTask();
     database.deleteTask(task);
-
     Navigator.pop(context);
-
-    print('Task deleted');
   }
 
   @override

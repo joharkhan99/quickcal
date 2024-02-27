@@ -20,8 +20,6 @@ class Database {
     var tasksForDate = tasksbox.get(newtask.date.toString()) ?? [];
     tasksForDate.add(newtask.toJson());
     tasksbox.put(newtask.date.toString(), tasksForDate);
-    print('Task saved');
-    print(tasksForDate);
   }
 
   List<Task> getTasksForDate(DateTime date) {
