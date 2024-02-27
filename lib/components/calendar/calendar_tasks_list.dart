@@ -13,6 +13,16 @@ class CalendarTasksList extends StatelessWidget {
     }
   }
 
+  String getTaskNotes(Task task) {
+    if (task.notes == '') {
+      return 'Not specified';
+    } else if (task.notes.length > 50) {
+      return '${task.notes.substring(0, 50)}...';
+    } else {
+      return task.notes;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -141,7 +151,7 @@ class CalendarTasksList extends StatelessWidget {
                             const SizedBox(width: 5),
                             Flexible(
                               child: Text(
-                                tasksForDate[index].notes == '' ? 'Not specified' : '${tasksForDate[index].notes.substring(0, 50)}...',
+                                getTaskNotes(tasksForDate[index]),
                                 style: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 12,

@@ -64,13 +64,18 @@ class _SlideBottomButtonsState extends State<SlideBottomButtons> {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             backgroundColor: Colors.black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(10),
+            // ),
+            shape: isLastSlide
+                ? RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  )
+                : CircleBorder(),
           ),
-          onPressed: () =>
-              isLastSlide ? handleSkip(context) : handleNextSlide(),
+          onPressed: () => isLastSlide ? handleSkip(context) : handleNextSlide(),
           child: isLastSlide
               ? const Text(
                   'Get Started',
@@ -83,7 +88,7 @@ class _SlideBottomButtonsState extends State<SlideBottomButtons> {
               : const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,
-                  size: 15,
+                  size: 20,
                 ),
         ),
       ],
