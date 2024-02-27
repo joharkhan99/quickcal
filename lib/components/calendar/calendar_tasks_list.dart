@@ -47,7 +47,7 @@ class CalendarTasksList extends StatelessWidget {
               onPressed: () => showBottomSheet(
                 context: context,
                 builder: (context) => Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
+                  height: MediaQuery.of(context).size.height * 0.6,
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(10),
                   decoration: const BoxDecoration(
@@ -61,100 +61,160 @@ class CalendarTasksList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.black.withOpacity(0.5),
-                          size: 20,
-                        ),
-                        Text(
-                          tasksForDate[index].name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: tasksForDate[index].getColor(),
-                            fontSize: 20,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              fill: 1,
-                              size: 15,
-                              color: tasksForDate[index].getColor(),
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              getTaskTime(tasksForDate[index], context),
-                              style: TextStyle(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.arrow_drop_down,
                                 color: Colors.black.withOpacity(0.5),
-                                fontSize: 15,
+                                size: 20,
                               ),
-                            ),
-                            const SizedBox(width: 20),
-                            Icon(
-                              Icons.notifications_none,
-                              size: 15,
-                              color: tasksForDate[index].getColor().withOpacity(0.9),
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              tasksForDate[index].notifyTime,
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              fill: 1,
-                              size: 15,
-                              color: tasksForDate[index].getColor(),
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              tasksForDate[index].location == '' ? 'Not specified' : tasksForDate[index].location,
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.notes_outlined,
-                              fill: 1,
-                              size: 15,
-                              color: tasksForDate[index].getColor(),
-                            ),
-                            const SizedBox(width: 5),
-                            Flexible(
-                              child: Text(
-                                tasksForDate[index].notes,
+                              Text(
+                                tasksForDate[index].name,
                                 style: TextStyle(
-                                  color: Colors.black.withOpacity(0.5),
-                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: tasksForDate[index].getColor(),
+                                  fontSize: 20,
+                                ),
+                                textAlign: TextAlign.start,
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.access_time,
+                                    fill: 1,
+                                    size: 15,
+                                    color: tasksForDate[index].getColor(),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    getTaskTime(tasksForDate[index], context),
+                                    style: TextStyle(
+                                      color: Colors.black.withOpacity(0.5),
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  Icon(
+                                    Icons.notifications_none,
+                                    size: 15,
+                                    color: tasksForDate[index].getColor().withOpacity(0.9),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    tasksForDate[index].notifyTime,
+                                    style: TextStyle(
+                                      color: Colors.black.withOpacity(0.5),
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on_outlined,
+                                    fill: 1,
+                                    size: 15,
+                                    color: tasksForDate[index].getColor(),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    tasksForDate[index].location == '' ? 'Not specified' : tasksForDate[index].location,
+                                    style: TextStyle(
+                                      color: Colors.black.withOpacity(0.5),
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.notes_outlined,
+                                    fill: 1,
+                                    size: 15,
+                                    color: tasksForDate[index].getColor(),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Flexible(
+                                    child: Text(
+                                      tasksForDate[index].notes,
+                                      style: TextStyle(
+                                        color: Colors.black.withOpacity(0.5),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              // 50% of screen width
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: ElevatedButton(
+                                onPressed: () => (),
+                                style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 13),
+                                    backgroundColor: Colors.grey.shade300,
+                                    shadowColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    elevation: 0),
+                                child: const Text(
+                                  'Remove',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.01,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: ElevatedButton(
+                                onPressed: () => (),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(vertical: 13),
+                                  backgroundColor: tasksForDate[index].getColor(),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Edit',
+                                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
