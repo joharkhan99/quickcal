@@ -71,14 +71,13 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CreateTaskPage(
-                      selectedDate: selectedDate,
-                    )),
+              builder: (context) => CreateTaskPage(
+                selectedDate: selectedDate,
+              ),
+            ),
           );
         },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         backgroundColor: Colors.black,
         child: const Icon(Icons.add, color: Colors.white),
       ),

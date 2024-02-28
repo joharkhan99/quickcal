@@ -25,10 +25,6 @@ class CalendarTasksList extends StatelessWidget {
   }
 
   taskDetails(BuildContext context, Task task) {
-    // return bottomSheet(
-    print("object");
-    task.printTask();
-    print("object");
     return showBottomSheet(
       context: context,
       builder: (context) => DetailsBottomSheet(task: task),
