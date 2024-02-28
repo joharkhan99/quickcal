@@ -22,6 +22,13 @@ class Database {
     tasksbox.put(newtask.date.toString(), tasksForDate);
   }
 
+  void updateData(Task updatedTask, DateTime oldDate, String taskOldId) {
+    // delete task from old date
+    deleteByTaskId(taskOldId, oldDate);
+    // add task to new date
+    saveData(updatedTask);
+  }
+
   List<Task> getTasksForDate(DateTime date) {
     List<Task> tasks = [];
     var savedTasks = tasksbox.get(date.toString()) ?? [];
@@ -35,10 +42,14 @@ class Database {
   }
 
   void deleteTask(Task task) {
-    task.printTask();
     var tasksForDate = tasksbox.get(task.date.toString()) ?? [];
-    print(tasksForDate);
     tasksForDate.removeWhere((element) => element['taskId'] == task.taskId);
     tasksbox.put(task.date.toString(), tasksForDate);
+  }
+
+  void deleteByTaskId(String taskId, DateTime date) {
+    var tasksForDate = tasksbox.get(date.toString()) ?? [];
+    tasksForDate.removeWhere((element) => element['taskId'] == taskId);
+    tasksbox.put(date.toString(), tasksForDate);
   }
 }

@@ -76,16 +76,16 @@ class DetailsBottomSheet extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        Icons.access_time,
+                        Icons.calendar_month,
                         fill: 1,
                         size: 15,
                         color: task.getColor(),
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        getTaskTime(task, context),
+                        '${task.date.day}/${task.date.month}/${task.date.year}',
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withOpacity(0.7),
                           fontSize: 15,
                         ),
                       ),
@@ -99,15 +99,29 @@ class DetailsBottomSheet extends StatelessWidget {
                       Text(
                         task.notifyTime,
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withOpacity(0.7),
                           fontSize: 15,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
+                      Icon(
+                        Icons.notifications_none,
+                        size: 15,
+                        color: task.getColor().withOpacity(0.9),
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        task.notifyTime,
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.7),
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
                       Icon(
                         Icons.location_on_outlined,
                         fill: 1,
@@ -118,13 +132,13 @@ class DetailsBottomSheet extends StatelessWidget {
                       Text(
                         task.location == '' ? 'Not specified' : task.location,
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withOpacity(0.7),
                           fontSize: 15,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -139,7 +153,7 @@ class DetailsBottomSheet extends StatelessWidget {
                         child: Text(
                           task.notes == '' ? 'Not specified' : task.notes,
                           style: TextStyle(
-                            color: Colors.black.withOpacity(0.5),
+                            color: Colors.black.withOpacity(0.7),
                             fontSize: 15,
                           ),
                         ),

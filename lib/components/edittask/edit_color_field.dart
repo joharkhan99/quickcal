@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quickcal/components/addtask/event_color_modal.dart';
+import 'package:quickcal/components/edittask/edit_color_modal.dart';
 import 'package:quickcal/models/task.dart';
 
 class EditColorField extends StatefulWidget {
@@ -22,7 +22,7 @@ class _EditColorFieldState extends State<EditColorField> {
     showDialog(
       context: context,
       builder: (context) {
-        return EventColorDialogBox(
+        return EditColorDialogBox(
           handleColorSelection: handleColorSelection,
           colorIndex: widget.task.colorIndex,
           colors: widget.task.colors,

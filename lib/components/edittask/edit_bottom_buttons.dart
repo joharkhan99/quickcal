@@ -47,7 +47,7 @@ class EditBottomButtons extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                'Save',
+                'Update',
                 style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),

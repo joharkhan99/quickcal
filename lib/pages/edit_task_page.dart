@@ -22,61 +22,66 @@ class EditTaskPage extends StatefulWidget {
 }
 
 class _EditTaskPageState extends State<EditTaskPage> {
-  late Task task;
   late bool light;
   final _nameController = TextEditingController();
   final _locationController = TextEditingController();
   final _notesController = TextEditingController();
   Database database = Database();
+  late DateTime oldDate;
+  late String taskOldId;
 
   @override
   void initState() {
     super.initState();
 
-    task = Task();
-    light = task.allDay;
+    light = widget.task.allDay;
+    _nameController.text = widget.task.name;
+    _locationController.text = widget.task.location;
+    _notesController.text = widget.task.notes;
+    oldDate = widget.task.date;
+    taskOldId = widget.task.taskId;
   }
 
   void changeReminderSwitch(bool value) {
     setState(() {
       light = value;
-      task.setAllDay(value);
+      widget.task.setAllDay(value);
     });
   }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: task.date,
+      initialDate: widget.task.date,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
 
     if (picked != null) {
       setState(() {
-        task.setDate(picked);
+        widget.task.setDate(picked);
       });
     }
   }
 
   void onSave() {
-    task.setName(_nameController.text);
-    task.setLocation(_locationController.text);
-    task.setNotes(_notesController.text);
+    widget.task.setName(_nameController.text);
+    widget.task.setLocation(_locationController.text);
+    widget.task.setNotes(_notesController.text);
 
     if (_nameController.text.isEmpty) {
       AlertMessage(context, 'Name field is empty', 'Please enter a name for the event');
       return;
     }
 
-    task.setTaskId(task.generateTaskId());
-    task.setDate(task.date);
-    database.saveData(task);
+    widget.task.setTaskId(widget.task.generateTaskId());
+    widget.task.setDate(widget.task.date);
+    database.updateData(widget.task, oldDate, taskOldId);
 
     _nameController.clear();
     _locationController.clear();
     _notesController.clear();
-    task = Task();
+    widget.task = Task();
 
     Navigator.pop(context);
   }
@@ -85,7 +90,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
     _nameController.clear();
     _locationController.clear();
     _notesController.clear();
-    task = Task();
+    widget.task = Task();
     Navigator.pop(context);
   }
 
@@ -142,7 +147,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Date: ${task.date.day}/${task.date.month}/${task.date.year}",
+                                      "Date: ${widget.task.date.day}/${widget.task.date.month}/${widget.task.date.year}",
                                       style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
                                     ),
                                     const Icon(
@@ -162,7 +167,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                         EditAllDayField(changeReminderSwitch: changeReminderSwitch, light: light),
                       ],
                     ),
-                    task.allDay
+                    widget.task.allDay
                         ? Container()
                         : Column(
                             children: [
@@ -171,9 +176,9 @@ class _EditTaskPageState extends State<EditTaskPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  EditStartTimeField(task: task),
+                                  EditStartTimeField(task: widget.task),
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                                  EndTimeField(task: task),
+                                  EndTimeField(task: widget.task),
                                 ],
                               ),
                             ],
@@ -183,9 +188,9 @@ class _EditTaskPageState extends State<EditTaskPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        EditNotifyField(task: task),
+                        EditNotifyField(task: widget.task),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                        EditColorField(task: task),
+                        EditColorField(task: widget.task),
                       ],
                     ),
                     const SizedBox(height: 15),

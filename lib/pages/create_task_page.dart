@@ -79,6 +79,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     _notesController.clear();
     task = Task();
 
+    const SnackBar(content: Text('Event added successfully!'));
+
     Navigator.pop(context);
   }
 
