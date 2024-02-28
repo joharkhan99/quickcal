@@ -71,9 +71,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreateTaskPage(
-                selectedDate: selectedDate,
-              ),
+              builder: (context) => CreateTaskPage(selectedDate: selectedDate, handleDateCardClick: handleDateCardClick),
             ),
           );
         },
@@ -134,7 +132,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       )
-                    : CalendarTasksList(tasksForDate: tasksForDate)
+                    : CalendarTasksList(
+                        tasksForDate: tasksForDate,
+                        handleDateCardClick: handleDateCardClick,
+                      )
               ],
             ),
           ),

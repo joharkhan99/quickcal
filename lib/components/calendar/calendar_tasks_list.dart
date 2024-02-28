@@ -4,7 +4,8 @@ import 'package:quickcal/models/task.dart';
 
 class CalendarTasksList extends StatelessWidget {
   List<Task> tasksForDate;
-  CalendarTasksList({super.key, required this.tasksForDate});
+  Function handleDateCardClick;
+  CalendarTasksList({super.key, required this.tasksForDate, required this.handleDateCardClick});
 
   String getTaskTime(Task task, BuildContext context) {
     if (task.allDay) {
@@ -27,7 +28,7 @@ class CalendarTasksList extends StatelessWidget {
   taskDetails(BuildContext context, Task task) {
     return showBottomSheet(
       context: context,
-      builder: (context) => DetailsBottomSheet(task: task),
+      builder: (context) => DetailsBottomSheet(task: task, handleDateCardClick: handleDateCardClick),
     );
   }
 

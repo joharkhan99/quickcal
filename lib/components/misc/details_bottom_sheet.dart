@@ -5,7 +5,8 @@ import 'package:quickcal/pages/edit_task_page.dart';
 
 class DetailsBottomSheet extends StatelessWidget {
   Task task;
-  DetailsBottomSheet({super.key, required this.task});
+  Function handleDateCardClick;
+  DetailsBottomSheet({super.key, required this.task, required this.handleDateCardClick});
   Database database = Database();
 
   String getTaskTime(Task task, BuildContext context) {
@@ -27,8 +28,11 @@ class DetailsBottomSheet extends StatelessWidget {
   }
 
   void deleteEvent(BuildContext context) {
-    task.printTask();
+    DateTime oldDate = task.date;
     database.deleteTask(task);
+    handleDateCardClick(oldDate);
+    const snackBar = SnackBar(content: Text("Event removed Successfully!"), duration: Duration(seconds: 1));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     Navigator.pop(context);
   }
 
@@ -203,9 +207,7 @@ class DetailsBottomSheet extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditTaskPage(
-                            task: task,
-                          ),
+                          builder: (context) => EditTaskPage(task: task, handleDateCardClick: handleDateCardClick),
                         ),
                       );
                     },
