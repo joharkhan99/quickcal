@@ -5,6 +5,7 @@ import 'package:quickcal/components/calendar/calendar_task_header.dart';
 import 'package:quickcal/components/calendar/calendar_tasks_list.dart';
 import 'package:quickcal/components/calendar/calendar_current_date_top_button.dart';
 import 'package:quickcal/components/calendar/calendar_popup_menu.dart';
+import 'package:quickcal/components/misc/search_bottom_sheet.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/calendar.dart';
 import 'package:quickcal/models/task.dart';
@@ -50,8 +51,7 @@ class _HomePageState extends State<HomePage> {
   void updateCalendarToToday(DateTime date) {
     setState(() {
       calendar.setCurrentMonth(date);
-      selectedDate = date;
-      tasksForDate = database.getTasksForDate(date);
+      handleDateCardClick(DateTime.now());
     });
   }
 
@@ -90,10 +90,12 @@ class _HomePageState extends State<HomePage> {
         scrolledUnderElevation: 0.0,
         actions: [
           CurrentDateTopButton(updateCalendarToToday: updateCalendarToToday),
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-            tooltip: 'Search',
+          Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () => searchButtonClick(context),
+              tooltip: 'Search',
+            ),
           ),
           const PopUpMenu(),
         ],
@@ -141,6 +143,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  searchButtonClick(BuildContext context) {
+    return showBottomSheet(
+      context: context,
+      builder: (context) => SearchBottomSheet(handleDateCardClick: handleDateCardClick),
     );
   }
 }

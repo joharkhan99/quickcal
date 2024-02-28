@@ -52,4 +52,32 @@ class Database {
     tasksForDate.removeWhere((element) => element['taskId'] == taskId);
     tasksbox.put(date.toString(), tasksForDate);
   }
+
+  Future<List<Task>> searchTasksByName(String searchValue) async {
+    final List<Map<dynamic, dynamic>> matchingTasks = [];
+
+    for (var key in tasksbox.keys) {
+      final List<dynamic> tasks = tasksbox.get(key);
+
+      for (var task in tasks) {
+        if (task['name'] != null &&
+            (task['name'].toLowerCase().contains(searchValue.toLowerCase()) ||
+                task['notes'].toLowerCase().contains(searchValue.toLowerCase()) ||
+                task['location'].toLowerCase().contains(searchValue.toLowerCase()))) {
+          matchingTasks.add(task);
+        }
+      }
+    }
+
+    List<Task> taskList = [];
+
+    for (Map<dynamic, dynamic> map in matchingTasks) {
+      var encodedTask = jsonEncode(map);
+      Map<String, dynamic> decodedTask = json.decode(encodedTask);
+      Task t = Task.fromJson(decodedTask);
+      taskList.add(t);
+    }
+
+    return taskList;
+  }
 }
