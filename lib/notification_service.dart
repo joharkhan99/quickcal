@@ -37,8 +37,7 @@ class LocalNotificationService {
     await flutterLocalNotificationsPlugin.show(notification_id, title, value, notificationDetails, payload: 'Not present');
   }
 
-  Future scheduleNotification(String body, String bigText, String contentTitle, DateTime notificationTime) async {
-    int id = Random().nextInt(10000);
+  Future scheduleNotification(int id, String body, String bigText, String contentTitle, DateTime notificationTime) async {
     try {
       await flutterLocalNotificationsPlugin.zonedSchedule(
         id,

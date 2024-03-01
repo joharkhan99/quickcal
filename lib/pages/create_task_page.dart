@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:quickcal/components/addtask/event_all_day_field.dart';
 import 'package:quickcal/components/addtask/event_bottom_buttons.dart';
@@ -105,22 +107,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     }
   }
 
-  void onSave() {
-    task.setName(_nameController.text);
-    task.setLocation(_locationController.text);
-    task.setNotes(_notesController.text);
-
-    if (_nameController.text.isEmpty) {
-      AlertMessage(context, 'Name field is empty', 'Please enter a name for the event');
-      return;
-    }
-
-    task.setTaskId(task.generateTaskId());
-    task.setDate(widget.selectedDate);
-    database.saveData(task);
-
-    print(task.notifyTime);
-
+  int setNotification(Task task) {
     if (task.notifyTime != 'None') {
       int notifyTime = getTaskNotifyTime(task.notifyTime);
       int notificationTimeInSeconds = notifyTime * 60;
@@ -134,17 +121,42 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
       // 3600 seconds in an hour, 60 seconds in a minute
       DateTime notificationTime = DateTime(task.date.year, task.date.month, task.date.day, notificationTimeInSeconds ~/ 3600, (notificationTimeInSeconds % 3600) ~/ 60);
 
-      String notificationBody = '${task.name} at ${task.startTime.format(context)}';
+      int notificationId = Random().nextInt(10000);
+      String notificationBody = '${task.name} is Scheduled at ${task.startTime.format(context)}';
       String notificationBigText =
           'Date: ${task.date.day}/${task.date.month}/${task.date.year}<br>Time: ${task.startTime.format(context)}-${task.endTime.format(context)}<br>Location: ${task.location == '' ? 'Not Specified' : task.location}<br>Notes: ${getTaskNotes(task)}';
 
       LocalNotificationService().scheduleNotification(
+        notificationId,
         notificationBody,
         notificationBigText,
         task.name,
         notificationTime,
       );
+
+      return notificationId;
     }
+
+    return -1;
+  }
+
+  void onSave() {
+    task.setName(_nameController.text);
+    task.setLocation(_locationController.text);
+    task.setNotes(_notesController.text);
+
+    if (_nameController.text.isEmpty) {
+      AlertMessage(context, 'Name field is empty', 'Please enter a name for the event');
+      return;
+    }
+
+    task.setTaskId(task.generateTaskId());
+    task.setDate(widget.selectedDate);
+
+    int notificationId = setNotification(task);
+
+    task.setNotificationId(notificationId);
+    database.saveData(task);
 
     _nameController.clear();
     _locationController.clear();

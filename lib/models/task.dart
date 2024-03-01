@@ -12,6 +12,7 @@ class Task {
   late String location;
   late String notes;
   late String taskId;
+  late int notificationId;
 
   final List<String> times = ['None', 'On time', '5 mins before', '10 mins before', '15 mins before', '30 mins before', '1 hour before', '2 hours before'];
   final List<Color> colors = [
@@ -93,6 +94,14 @@ class Task {
     this.taskId = taskId;
   }
 
+  void setNotificationId(int notificationId) {
+    this.notificationId = notificationId;
+  }
+
+  int getNotificationId() {
+    return notificationId;
+  }
+
   String getName() {
     return name;
   }
@@ -147,7 +156,7 @@ class Task {
 
   void printTask() {
     print(
-        'Task ID: $taskId | Name: $name | Date: $date | All Day: $allDay | Start Time: $startTime | End Time: $endTime | Notify Time: $notifyTime | Color: $colorIndex | Location: $location | Notes: $notes');
+        'Task ID: $taskId | Name: $name | Date: $date | All Day: $allDay | Start Time: $startTime | End Time: $endTime | Notify Time: $notifyTime | Color: $colorIndex | Location: $location | Notes: $notes | Notification ID: $notificationId');
   }
 
   Map<String, dynamic> toJson() {
@@ -162,6 +171,7 @@ class Task {
       'location': location,
       'notes': notes,
       'taskId': taskId,
+      'notificationId': notificationId.toString(),
     };
   }
 
@@ -189,6 +199,7 @@ class Task {
       'location': json['location'],
       'notes': json['notes'],
       'taskId': json['taskId'],
+      'notificationId': json['notificationId'],
     });
   }
 
@@ -203,5 +214,6 @@ class Task {
     location = json['location'];
     notes = json['notes'];
     taskId = json['taskId'];
+    notificationId = int.parse(json['notificationId']);
   }
 }
