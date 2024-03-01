@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/task.dart';
+import 'package:quickcal/notification_service.dart';
 import 'package:quickcal/pages/edit_task_page.dart';
 
 class DetailsBottomSheet extends StatelessWidget {
@@ -29,6 +30,7 @@ class DetailsBottomSheet extends StatelessWidget {
 
   void deleteEvent(BuildContext context) {
     DateTime oldDate = task.date;
+    LocalNotificationService().cancelNotification(task.notificationId);
     database.deleteTask(task);
     handleDateCardClick(oldDate);
     const snackBar = SnackBar(content: Text("Event removed Successfully!"), duration: Duration(seconds: 1));
