@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickcal/components/addtask/event_all_day_field.dart';
 import 'package:quickcal/components/addtask/event_bottom_buttons.dart';
-import 'package:quickcal/components/addtask/event_date_field.dart';
 import 'package:quickcal/components/addtask/event_end_time_field.dart';
 import 'package:quickcal/components/addtask/event_color_field.dart';
 import 'package:quickcal/components/addtask/event_location_field.dart';
@@ -12,6 +11,7 @@ import 'package:quickcal/components/addtask/event_start_time_field.dart';
 import 'package:quickcal/components/misc/alert_message.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/task.dart';
+import 'package:quickcal/notification_service.dart';
 
 class CreateTaskPage extends StatefulWidget {
   DateTime selectedDate;
@@ -45,6 +45,50 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     });
   }
 
+  String getTaskNotes(Task task) {
+    if (task.notes == '') {
+      return 'Not specified';
+    } else if (task.notes.length > 50) {
+      return '${task.notes.substring(0, 50)}...';
+    } else {
+      return task.notes;
+    }
+  }
+
+  int getTaskNotifyTime(String notify) {
+    // ['None', 'On time', '5 mins before', '10 mins before', '15 mins before', '30 mins before', '1 hour before']
+    int notifyTime = 0;
+    switch (notify) {
+      case 'None':
+        notifyTime = 0;
+        break;
+      case 'On time':
+        notifyTime = 0;
+        break;
+      case '5 mins before':
+        notifyTime = 5;
+        break;
+      case '10 mins before':
+        notifyTime = 10;
+        break;
+      case '15 mins before':
+        notifyTime = 15;
+        break;
+      case '30 mins before':
+        notifyTime = 30;
+        break;
+      case '1 hour before':
+        notifyTime = 60;
+        break;
+      case '2 hours before':
+        notifyTime = 120;
+        break;
+      default:
+        notifyTime = 0;
+    }
+    return notifyTime;
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -74,6 +118,33 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     task.setTaskId(task.generateTaskId());
     task.setDate(widget.selectedDate);
     database.saveData(task);
+
+    print(task.notifyTime);
+
+    if (task.notifyTime != 'None') {
+      int notifyTime = getTaskNotifyTime(task.notifyTime);
+      int notificationTimeInSeconds = notifyTime * 60;
+
+      if (task.allDay) {
+        notificationTimeInSeconds = 0;
+      } else {
+        notificationTimeInSeconds = task.startTime.hour * 3600 + task.startTime.minute * 60 - notificationTimeInSeconds;
+      }
+
+      // 3600 seconds in an hour, 60 seconds in a minute
+      DateTime notificationTime = DateTime(task.date.year, task.date.month, task.date.day, notificationTimeInSeconds ~/ 3600, (notificationTimeInSeconds % 3600) ~/ 60);
+
+      String notificationBody = '${task.name} at ${task.startTime.format(context)}';
+      String notificationBigText =
+          'Date: ${task.date.day}/${task.date.month}/${task.date.year}<br>Time: ${task.startTime.format(context)}-${task.endTime.format(context)}<br>Location: ${task.location == '' ? 'Not Specified' : task.location}<br>Notes: ${getTaskNotes(task)}';
+
+      LocalNotificationService().scheduleNotification(
+        notificationBody,
+        notificationBigText,
+        task.name,
+        notificationTime,
+      );
+    }
 
     _nameController.clear();
     _locationController.clear();

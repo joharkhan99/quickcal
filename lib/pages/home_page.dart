@@ -51,7 +51,8 @@ class _HomePageState extends State<HomePage> {
   void updateCalendarToToday(DateTime date) {
     setState(() {
       calendar.setCurrentMonth(date);
-      handleDateCardClick(DateTime.now());
+      selectedDate = date;
+      tasksForDate = database.getTasksForDate(date);
     });
   }
 

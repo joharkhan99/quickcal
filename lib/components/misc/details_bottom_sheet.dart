@@ -95,13 +95,14 @@ class DetailsBottomSheet extends StatelessWidget {
                       ),
                       const SizedBox(width: 20),
                       Icon(
-                        Icons.notifications_none,
+                        Icons.access_time,
+                        fill: 1,
                         size: 15,
-                        color: task.getColor().withOpacity(0.9),
+                        color: task.getColor(),
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        task.notifyTime,
+                        getTaskTime(task, context),
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.7),
                           fontSize: 15,

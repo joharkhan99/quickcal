@@ -6,18 +6,14 @@ import 'package:quickcal/pages/welcome_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
+  // initialize the notification service
   WidgetsFlutterBinding.ensureInitialized();
-
   await LocalNotificationService().init();
-  // LocalNotificationService().showNotificationAndroid("title", "value");
-  await LocalNotificationService().showTimedNotification();
-  // await LocalNotificationService().zonedScheduleNotification("this is note", DateTime.now().add(const Duration(seconds: 30)), "this is occ");
 
   // init the hive
   await Hive.initFlutter();
-
   // open the box
-  var box = await Hive.openBox('tasksbox');
+  await Hive.openBox('tasksbox');
 
   runApp(const MyApp());
 }

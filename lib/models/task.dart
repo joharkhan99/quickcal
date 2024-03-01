@@ -13,7 +13,7 @@ class Task {
   late String notes;
   late String taskId;
 
-  final List<String> times = ['None', 'On time', '5 mins before', '10 mins before', '15 mins before', '30 mins before', '1 hour before'];
+  final List<String> times = ['None', 'On time', '5 mins before', '10 mins before', '15 mins before', '30 mins before', '1 hour before', '2 hours before'];
   final List<Color> colors = [
     Colors.blueAccent,
     Colors.red,
