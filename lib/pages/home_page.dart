@@ -4,6 +4,7 @@ import 'package:quickcal/components/calendar/calendar_grid.dart';
 import 'package:quickcal/components/calendar/calendar_task_header.dart';
 import 'package:quickcal/components/calendar/calendar_tasks_list.dart';
 import 'package:quickcal/components/calendar/calendar_current_date_top_button.dart';
+import 'package:quickcal/components/misc/alert_message.dart';
 // import 'package:quickcal/components/calendar/calendar_popup_menu.dart';
 import 'package:quickcal/components/misc/search_bottom_sheet.dart';
 import 'package:quickcal/data/database.dart';
@@ -101,7 +102,12 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             icon: const Icon(Icons.dark_mode_outlined),
-            onPressed: () => (),
+            onPressed: () => AlertMessage(
+              context,
+              "Coming Soon",
+              "This feature is coming soon.",
+              isError: false,
+            ),
             tooltip: 'Theme',
           ),
           // const PopUpMenu(),
