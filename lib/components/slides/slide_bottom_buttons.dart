@@ -20,21 +20,6 @@ class SlideBottomButtons extends StatefulWidget {
 class _SlideBottomButtonsState extends State<SlideBottomButtons> {
   bool isLastSlide = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    // check if has seen welcome
-    final settingsBox = Hive.box('settingsbox');
-    final hasSeenWelcome = settingsBox.get('hasSeenWelcome', defaultValue: false);
-
-    Future.delayed(Duration.zero, () {
-      if (hasSeenWelcome) {
-        Navigator.pushReplacementNamed(context, "/home");
-      }
-    });
-  }
-
   void handleNextSlide() {
     if (widget.currentPage < widget.totalSlides - 1) {
       widget.controller.animateToPage(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quickcal/notification_service.dart';
 import 'package:quickcal/pages/create_task_page.dart';
 import 'package:quickcal/pages/home_page.dart';
+import 'package:quickcal/pages/splash_screen.dart';
 import 'package:quickcal/pages/welcome_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -23,23 +24,13 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  String _getInitialRoute() {
-    final settingsBox = Hive.box('settingsbox');
-    final hasSeenWelcome = settingsBox.get('hasSeenWelcome', defaultValue: false);
-
-    if (hasSeenWelcome) {
-      return '/home';
-    } else {
-      return '/';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: _getInitialRoute(),
+      initialRoute: '/splash',
       routes: {
+        '/splash': (context) => const SplashScreen(),
         '/': (context) => const WelcomePage(),
         '/home': (context) => const HomePage(),
         '/create-task': (context) => CreateTaskPage(selectedDate: DateTime.now(), handleDateCardClick: () => ()),
