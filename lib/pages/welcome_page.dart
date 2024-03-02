@@ -34,21 +34,6 @@ class _WelcomePageState extends State<WelcomePage> {
   final PageController _controller = PageController(initialPage: 0);
 
   @override
-  void initState() {
-    super.initState();
-
-    // check if has seen welcome
-    final settingsBox = Hive.box('settingsbox');
-    final hasSeenWelcome = settingsBox.get('hasSeenWelcome', defaultValue: false);
-
-    Future.delayed(Duration.zero, () {
-      if (hasSeenWelcome) {
-        Navigator.pushReplacementNamed(context, "/home");
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

@@ -28,13 +28,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/': (context) => const WelcomePage(),
-        '/home': (context) => const HomePage(),
-        '/create-task': (context) => CreateTaskPage(selectedDate: DateTime.now(), handleDateCardClick: () => ()),
-      },
+      // initialRoute: '/splash',
+      home: const SplashScreen(),
+      // routes: {
+      //   '/splash': (context) => const SplashScreen(),
+      //   '/': (context) => const WelcomePage(),
+      //   '/home': (context) => const HomePage(),
+      //   '/create-task': (context) => CreateTaskPage(selectedDate: DateTime.now(), handleDateCardClick: () => ()),
+      // },
       theme: ThemeData(
         fontFamily: 'Roboto',
         // primary color is black

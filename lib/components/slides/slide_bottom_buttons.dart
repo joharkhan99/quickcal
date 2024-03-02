@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:quickcal/pages/home_page.dart';
 
 class SlideBottomButtons extends StatefulWidget {
   final int currentPage;
@@ -38,7 +39,13 @@ class _SlideBottomButtonsState extends State<SlideBottomButtons> {
 
   void handleSkip(BuildContext context) {
     Hive.box('settingsbox').put('hasSeenWelcome', true);
-    Navigator.pushReplacementNamed(context, "/home");
+    // navigate to the home page
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
   }
 
   @override

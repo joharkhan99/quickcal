@@ -2,27 +2,35 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:quickcal/pages/home_page.dart';
+import 'package:quickcal/pages/welcome_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  String _getInitialRoute() {
+  Widget _getInitialRoute() {
     final settingsBox = Hive.box('settingsbox');
     final hasSeenWelcome = settingsBox.get('hasSeenWelcome', defaultValue: false);
 
     if (hasSeenWelcome) {
-      return '/home';
+      return const HomePage();
     } else {
-      return '/';
+      return const WelcomePage();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     Timer(
-      const Duration(seconds: 2),
-      () => Navigator.of(context, rootNavigator: true).pushReplacementNamed(_getInitialRoute()),
+      const Duration(seconds: 3),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => _getInitialRoute(),
+        ),
+      ),
     );
+
     return const DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(

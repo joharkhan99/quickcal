@@ -4,7 +4,7 @@ import 'package:quickcal/components/calendar/calendar_grid.dart';
 import 'package:quickcal/components/calendar/calendar_task_header.dart';
 import 'package:quickcal/components/calendar/calendar_tasks_list.dart';
 import 'package:quickcal/components/calendar/calendar_current_date_top_button.dart';
-import 'package:quickcal/components/calendar/calendar_popup_menu.dart';
+// import 'package:quickcal/components/calendar/calendar_popup_menu.dart';
 import 'package:quickcal/components/misc/search_bottom_sheet.dart';
 import 'package:quickcal/data/database.dart';
 import 'package:quickcal/models/calendar.dart';
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     selectedDate = DateTime.now();
     tasksForDate = database.getTasksForDate(selectedDate);
+    handleDateCardClick(selectedDate);
   }
 
   Future<void> _selectDate(BuildContext context) async {
