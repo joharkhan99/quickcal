@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SlideBottomButtons extends StatefulWidget {
   final int currentPage;
@@ -19,6 +20,21 @@ class SlideBottomButtons extends StatefulWidget {
 class _SlideBottomButtonsState extends State<SlideBottomButtons> {
   bool isLastSlide = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // check if has seen welcome
+    final settingsBox = Hive.box('settingsbox');
+    final hasSeenWelcome = settingsBox.get('hasSeenWelcome', defaultValue: false);
+
+    Future.delayed(Duration.zero, () {
+      if (hasSeenWelcome) {
+        Navigator.pushReplacementNamed(context, "/home");
+      }
+    });
+  }
+
   void handleNextSlide() {
     if (widget.currentPage < widget.totalSlides - 1) {
       widget.controller.animateToPage(
@@ -36,6 +52,7 @@ class _SlideBottomButtonsState extends State<SlideBottomButtons> {
   }
 
   void handleSkip(BuildContext context) {
+    Hive.box('settingsbox').put('hasSeenWelcome', true);
     Navigator.pushReplacementNamed(context, "/home");
   }
 
@@ -66,14 +83,11 @@ class _SlideBottomButtonsState extends State<SlideBottomButtons> {
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
             backgroundColor: Colors.black,
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.circular(10),
-            // ),
             shape: isLastSlide
                 ? RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100),
                   )
-                : CircleBorder(),
+                : const CircleBorder(),
           ),
           onPressed: () => isLastSlide ? handleSkip(context) : handleNextSlide(),
           child: isLastSlide

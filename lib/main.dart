@@ -14,6 +14,8 @@ void main() async {
   await Hive.initFlutter();
   // open the box
   await Hive.openBox('tasksbox');
+  // open settings box
+  await Hive.openBox('settingsbox');
 
   runApp(const MyApp());
 }
@@ -21,11 +23,22 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  String _getInitialRoute() {
+    final settingsBox = Hive.box('settingsbox');
+    final hasSeenWelcome = settingsBox.get('hasSeenWelcome', defaultValue: false);
+
+    if (hasSeenWelcome) {
+      return '/home';
+    } else {
+      return '/';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: _getInitialRoute(),
       routes: {
         '/': (context) => const WelcomePage(),
         '/home': (context) => const HomePage(),

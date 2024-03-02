@@ -98,7 +98,12 @@ class _HomePageState extends State<HomePage> {
               tooltip: 'Search',
             ),
           ),
-          const PopUpMenu(),
+          IconButton(
+            icon: const Icon(Icons.dark_mode_outlined),
+            onPressed: () => (),
+            tooltip: 'Theme',
+          ),
+          // const PopUpMenu(),
         ],
       ),
       body: Padding(
