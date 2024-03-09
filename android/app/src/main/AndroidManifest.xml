@@ -18,7 +18,7 @@
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.jka.quickcal.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
